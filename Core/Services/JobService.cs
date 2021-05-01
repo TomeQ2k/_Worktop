@@ -22,8 +22,6 @@ namespace Worktop.Core.Services
 
         public async Task<bool> InsertJobsFromFile()
         {
-            await Task.Delay(5000);
-
             var jsonJobs = await fileReader.ReadFile($"{fileReader.WebRootPath}{JobsFilePath}");
             var jobs = jsonJobs.FromJSON<IEnumerable<Job>>();
 
