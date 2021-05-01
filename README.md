@@ -13,8 +13,12 @@ Worktop is the simplified office dashboard for workers hired in the company. App
 
 ## Images
 
-**DDL schema**: ![DDL](https://user-images.githubusercontent.com/48593674/116780515-a2915700-aa7d-11eb-9d39-111d833b65cb.PNG)
-**Application**: ![home](https://user-images.githubusercontent.com/48593674/116780565-e08e7b00-aa7d-11eb-89a8-6d0ca019eb06.PNG)
+**DDL schema**: 
+
+![DDL](https://user-images.githubusercontent.com/48593674/116780515-a2915700-aa7d-11eb-9d39-111d833b65cb.PNG)
+**Application**: 
+
+![home](https://user-images.githubusercontent.com/48593674/116780565-e08e7b00-aa7d-11eb-89a8-6d0ca019eb06.PNG)
 ![login](https://user-images.githubusercontent.com/48593674/116780571-e4220200-aa7d-11eb-8f8c-64338ec052fa.PNG)
 ![profile](https://user-images.githubusercontent.com/48593674/116780576-e97f4c80-aa7d-11eb-9e12-0f72ae1444b8.PNG)
 ![panel](https://user-images.githubusercontent.com/48593674/116780578-ebe1a680-aa7d-11eb-9464-93196940c4a8.PNG)
