@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@model StorageIndexViewModel
+
+<h3 class="mb-3">Storage</h3>
+
+<div class="jumbotron">
+    <h1 class="display-4">Public</h1>
+    <p class="lead">Public cloud storage where you can store files. All co-workers will be able to read/download your
+        files and manage all directories</p>
+    <hr class="my-4">
+    <p class="lead">
+        <a asp-action="Public" asp-controller="Storage" class="btn btn-primary btn-lg">Open public storage</a>
+    </p>
+</div>
+<div class="jumbotron">
+    <h1 class="display-4">Private</h1>
+    <p class="lead">Private cloud storage where you can store files. Only you will be able to read/download/delete your
+        files and manage your directories</p>
+    <hr class="my-4">
+    <p class="lead">
+        <a asp-action="Private" asp-controller="Storage" class="btn btn-primary btn-lg">Open private storage</a>
+    </p>
+</div>

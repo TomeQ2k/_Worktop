@@ -1,0 +1,61 @@
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@model WorkerDetailsViewModel
+
+<h3>#@Model.Id<i> - @Model.UserName</i> - profile edit</h3>
+
+<dl class="row border rounded p-2 mb-3">
+    <dt class="col-sm-3">Email address</dt>
+    <dd class="col-sm-3">@Model.Email</dd>
+
+    @if (!string.IsNullOrEmpty(Model.JobTitle))
+    {
+        <dt class="col-sm-3">Job title</dt>
+        <dd class="col-sm-3">@Model.JobTitle</dd>
+    }
+
+    <dt class="col-sm-3">Base salary</dt>
+    <dd class="col-sm-3">@Model.BaseSalary $</dd>
+
+    <dt class="col-sm-3">Total salary</dt>
+    <dd class="col-sm-3">@Model.TotalSalary $</dd>
+
+    <dt class="col-sm-3">Salary bonus</dt>
+    <dd class="col-sm-3">x @Model.SalaryBonus</dd>
+
+    @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+    {
+        <dt class="col-sm-3">Phone number</dt>
+        <dd class="col-sm-3">@Model.PhoneNumber</dd>
+    }
+
+    @if (Model.DateHired != null)
+    {
+        <dt class="col-sm-3">Date hired</dt>
+        <dd class="col-sm-3">@Model.DateHired.Value.ToShortDateString()</dd>
+    }
+</dl>
+
+<h3>Worker manager</h3>
+<section class="border rounded p-2 mb-3">
+    <form method="POST" class="d-flex flex-row justify-content-around">
+        <span>Current job title: <strong>@Model.JobTitle</strong></span>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Assign job
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            @foreach (var job in Model.Jobs)
+            {
+                <button asp-action="AssignJob" asp-route-jobId=@job.Id asp-route-workerId=@Model.Id type="submit"
+                    class="dropdown-item">@job.Title</button>
+            }
+            </div>
+        </form>
+    </section>
+
+    @await Component.InvokeAsync("OpinionCreator", new {viewModel = new OpinionCreatorViewModel { UserId = Model.Id }});
+
+    <partial name="_AlertPartial" model="@Model.Alert" />

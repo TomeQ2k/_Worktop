@@ -1,0 +1,16 @@
+@model Opinion
+
+<div class="card bg-light">
+    <div class="card-body">
+        <p class="card-text">@Model.Text</p>
+        <div class="row d-flex justify-content-around">
+            <span class="text-dark">Bonus:
+                <strong>@(!Model.IsNegative ? (float)Model.SalaryBonusPercentage : -
+                    (float)Model.SalaryBonusPercentage) %</strong>
+            </span>
+            <span class="text-dark text-center">Created:
+                <strong>@Model.DateCreated.ToLongDateString()</strong>
+            </span>
+        </div>
+    </div>
+</div>

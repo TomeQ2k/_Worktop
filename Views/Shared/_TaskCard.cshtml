@@ -1,0 +1,47 @@
+@model TaskItem
+
+@inject IRolesService RolesService
+
+<div class="card bg-light text-center">
+    <div class="card-body">
+        <p class="card-text">@Model.Description</p>
+        <div class="row d-flex justify-content-around">
+            <span class="text-dark">Arranged:
+                <strong>@Model.DateArranged.ToShortDateString()</strong></span>
+            <span class="text-dark">Deadline:
+                <strong>@Model.DateDeadline.ToShortDateString()</strong></span>
+        </div>
+        <div class="text-center mt-3">
+            <form class="w-100" method="POST">
+                @if(!Model.NotCompleted)
+                {
+                    @switch (Model.Progress)
+                    {
+                    case TaskProgress.Unassigned:
+                        <button type="submit" class="btn btn-info m-1" asp-action="ChangeProgressStatus" asp-controller="Tasks" asp-route-taskId=@Model.Id asp-route-progress=1>&gt;</button>
+                        break;
+                    case TaskProgress.Assigned:
+                        <button type="submit" class="btn btn-info m-1" asp-action="ChangeProgressStatus" asp-controller="Tasks" asp-route-taskId=@Model.Id asp-route-progress=0>&lt;</button>
+                        <button type="submit" class="btn btn-info" asp-action="ChangeProgressStatus" asp-controller="Tasks" asp-route-taskId=@Model.Id asp-route-progress=2>&gt;</button>
+                        break;
+                    case TaskProgress.InProgress:
+                        <button type="submit" class="btn btn-info m-1" asp-action="ChangeProgressStatus" asp-controller="Tasks" asp-route-taskId=@Model.Id asp-route-progress=1>&lt;</button>
+                        <button type="submit" class="btn btn-info m-1" asp-action="ChangeProgressStatus" asp-controller="Tasks" asp-route-taskId=@Model.Id asp-route-progress=3>&gt;</button>
+                        break;
+                    case TaskProgress.Completed:
+                        <button type="submit" class="btn btn-info m-1" asp-action="ChangeProgressStatus" asp-controller="Tasks" asp-route-taskId=@Model.Id asp-route-progress=2>&lt;</button>
+                        break;
+                    default: break;
+                    }
+                }
+            </form>
+            @if(Model.Progress != TaskProgress.Unassigned || await RolesService.IsPermitted(RoleName.Admin, Context.GetCurrentUserId()))
+            {
+                <form class="d-flex flex-row flex-wrap justify-content-center w-100 mt-2" asp-action="DeleteTask" asp-controller="Tasks" asp-route-taskId=@Model.Id method="POST">
+                    <a class="btn btn-primary m-1" asp-action="EditTask" asp-controller="Tasks" asp-route-id=@Model.Id>Edit</a>
+                    <button type="submit" class="btn btn-danger m-1">Delete</button>
+                </form>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+@model RoomCardViewModel
+
+<div class="card border-info m-2 col-md-4 col-sm-6">
+    <div class="card-body d-flex flex-column justify-content-between">
+        <h5 class="card-title text-center">@Model.Room.RoomName</h5>
+
+        @await Component.InvokeAsync("Error", new {key = Model.Room.Id, value = Model.Error})
+
+        @if (Model.Room.MaxClients != null)
+        {
+            <label class="text-center" asp-for=@Model.Room.MaxClients>Clients:<br>
+                <span><strong> @(Model.Room.Connections.Count) /
+                        @(Model.Room.MaxClients)</strong></span></label>
+        }
+        else
+        {
+            <label class="text-center">Clients:<br>
+                <span><strong> @(Model.Room.Connections.Count)</strong></span></label>
+        }
+
+        @if (Model.Room.IsPassword)
+        {
+            <form asp-action="JoinRoom" asp-controller="Chat">
+                <input type="hidden" asp-for=@Model.Room.Id />
+                <div class="form-group">
+                    <label asp-for=@Model.Password></label>
+                    <input class="form-control" asp-for=@Model.Password type="password" placeholder="Password..." />
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info">Join</button>
+                </div>
+            </form>
+        }
+        else
+        {
+            <div class="text-center mx-auto">
+                <a class="btn btn-info" asp-action="Room" asp-controller="Chat" asp-route-roomId=@Model.Room.Id>Join</a>
+            </div>
+        }
+
+        @if (Model.Room.CreatorId == Context.GetCurrentUserId())
+        {
+            <div class="container d-flex flex-row flex-wrap justify-content-center mt-2">
+                <a asp-action="EditRoom" asp-controller="Chat" asp-route-id=@Model.Room.Id
+                    class="btn btn-primary m-1">Edit</a>
+                <form asp-action="DeleteRoom" asp-controller="Chat" asp-route-id=@Model.Room.Id>
+                    <button type="submit" class="btn btn-danger m-1">Delete</button>
+                </form>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@model EditRoomViewModel
+
+<h3>Edit room</h3>
+<form asp-action="UpdateRoom" asp-controller="Chat"
+    class="d-flex flex-column justify-content-center w-50 mx-auto border rounded p-3">
+    <input type="hidden" asp-for=@Model.Id />
+    <input type="hidden" asp-for=@Model.CreatorId />
+    <div class="form-group">
+        <label asp-for=@Model.RoomName>Room name</label>
+        <input type="text" required asp-for=@Model.RoomName class="form-control" placeholder="Room name..." />
+        <span asp-validation-for=@Model.RoomName class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <p class="text-warning">If you want to secure your chat room just protect it using password</p>
+        <label asp-for=@Model.Password></label>
+        <input type="text" asp-for=@Model.Password class="form-control" placeholder="Password..." />
+        <span asp-validation-for=@Model.Password class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <p class="text-warning">If you type any number, there would be no max clients limit in this room</p>
+        <label asp-for=@Model.MaxClients>Max clients limit</label>
+        <input type="number" asp-for=@Model.MaxClients class="form-control" placeholder="Max clients..." min="1"
+            max="100" />
+        <span asp-validation-for=@Model.MaxClients class="text-danger"></span>
+    </div>
+    <button class="btn btn-secondary" type="submit">Save changes</button>
+</form>

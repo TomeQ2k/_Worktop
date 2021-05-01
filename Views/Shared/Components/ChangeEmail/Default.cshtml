@@ -1,0 +1,16 @@
+@model ChangeEmailCallbackViewModel
+
+<form asp-action="SendChangeEmail" asp-controller="Profile" method="POST"
+    class="d-flex flex-column justify-content-center w-50 mx-auto border rounded p-3 mb-3">
+    <h3>Change email</h3>
+
+    <div class="form-group">
+        <label asp-for="NewEmail">New email address</label>
+        <input class="form-control" type="email" asp-for="NewEmail" placeholder="New email address..." />
+        <span asp-validation-for="NewEmail" class="text-danger"></span>
+
+        @await Component.InvokeAsync("Error", new {error = Model.Error})
+
+    </div>
+    <button type="submit" class="btn btn-primary">Send change email token</button>
+</form>

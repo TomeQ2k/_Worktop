@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@model StorageViewModel
+
+@inject IFileReader FileReader
+
+<h3 class="mb-3">Public storage</h3>
+
+<section class="container border rounded p-3 mb-3" style="height: @Constants.StorageContainerHeight;">
+    <div class="mb-3" style="height: @Constants.StorageHeaderContainerHeight;">
+        <div class="mb-3">
+            @await Component.InvokeAsync("Error", new {error = Model.Error})
+        </div>
+
+        @await Component.InvokeAsync("UploadForm", new {viewModel = UploadFormViewModel.Build()})
+        
+        @await Component.InvokeAsync("DirectoryForm", new {viewModel = DirectoryFormViewModel.Build($"{FileReader.WebRootPath}/files/public/")})
+
+    </div>
+
+    <partial name="_StoragePartial" model=@StoragePartialViewModel.Build(Model.Files,  Model.Directories) />
+  
+</section>
+
+<partial name="_AlertPartial" model="@Model.Alert" />
+
+@await Component.InvokeAsync("StorageSizeProgress")
+
+@section scripts {
+    <script src="~/js/fileInput.js"></script>
+}

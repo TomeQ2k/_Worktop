@@ -1,0 +1,15 @@
+@{
+    const string MessageTextWidth = "52vw";
+}
+
+@model Message
+
+<form asp-action="SendMessage" asp-controller="Chat" asp-route-roomId="@ViewBag.RoomId"
+    class="d-flex flex-row justify-content-center" data-ajax-begin="clearInputFields"
+    data-ajax-failure="validationFailHandler" data-ajax-success="sendMessage" data-ajax="true" data-ajax-method="POST">
+    <div class="form-group mr-2" style="width: @MessageTextWidth;">
+        <input class="form-control" type="text" asp-for="@Model.Text" placeholder="Text..." id="messageText" />
+        <span id="validationSpan" class="text-danger"></span>
+    </div>
+    <button class="btn btn-primary h-50" type="submit" id="submitButton">Send</button>
+</form>

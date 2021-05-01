@@ -1,0 +1,39 @@
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@model DirectoryViewModel
+
+@inject IFileReader FileReader
+@inject IFilePathBuilder FilePathBuilder
+
+<div class="d-flex flex-row justify-content-around align-items-center mb-3">
+    <a asp-action="PreviousDirectory" asp-controller="Storage" asp-route-directoryId=@Model.Directory.Id asp-route-isPrivate=@Model.IsPrivate
+        class="btn btn-info"><i class="fas fa-arrow-left"></i></a>
+    <h3>Directory -> @Model.Directory.Name</h3>
+</div>
+
+<section class="container border rounded p-3" style="height: @Constants.StorageContainerHeight;">
+    <div class="mb-3" style="height: @Constants.StorageHeaderContainerHeight;">
+        <div class="mb-3">
+            @await Component.InvokeAsync("Error", new {error = Model.Error})
+        </div>
+
+        @await Component.InvokeAsync("UploadForm", new {viewModel = UploadFormViewModel.Build(directoryId: Model.Directory.Id, isPrivate: Model.IsPrivate)})
+
+        @await Component.InvokeAsync("DirectoryForm", new 
+            {viewModel = DirectoryFormViewModel.Build(!Model.IsPrivate ? await FilePathBuilder.BuildFilePath(Model.Directory, $"{FileReader.WebRootPath}/files/public/") : await FilePathBuilder.BuildFilePath(Model.Directory, $"{FileReader.WebRootPath}/files/private/"),
+             directoryId: Model.Directory.Id, isPrivate: Model.IsPrivate)})
+    </div>
+
+    <partial name="_StoragePartial" model=@StoragePartialViewModel.Build(Model.Directory.Files,  Model.Directory.Subdirectories, directoryId: Model.Directory.Id, isPrivate: Model.IsPrivate) />
+
+</section>
+
+@await Component.InvokeAsync("StorageSizeProgress", new {isPrivateStorage = Model.IsPrivate})
+
+<partial name="_AlertPartial" model="@Model.Alert" />
+
+@section scripts {
+    <script src="~/js/fileInput.js"></script>
+}

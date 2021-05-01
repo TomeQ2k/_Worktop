@@ -1,0 +1,61 @@
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@model TasksViewModel
+
+<div class="text-center">
+    <h3>Tasks</h3>
+    <a asp-action="ArrangeTask" asp-controller="Tasks" class="btn btn-success mt-3">Arrange task</a>
+</div>
+<div class="container">
+    <section class="row mt-3">
+        <section class="col-md-4 mb-3">
+            <h3 class="text-dark">Unassigned</h3>
+            @foreach (var unassignedTask in Model.UnassignedTasks)
+            {
+                <div class="card bg-light">
+                    <partial name="_TaskCard" model="@unassignedTask" />
+                </div>
+            }
+        </section>
+        <section class="col-md-4 mb-3">
+            <h3 class="text-primary">Assigned</h3>
+            @foreach (var assignedTask in Model.AssignedTasks)
+            {
+                <div class="card bg-primary">
+                    <partial name="_TaskCard" model="@assignedTask" />
+                </div>
+            }
+        </section>
+        <section class="col-md-4 mb-3">
+            <h3 class="text-info">In progress</h3>
+            @foreach (var inProgressTask in Model.InProgressTasks)
+            {
+                <div class="card bg-info">
+                    <partial name="_TaskCard" model="@inProgressTask" />
+                </div>
+            }
+        </section>
+        <section class="col-md-4 mb-3">
+            <h3 class="text-success">Completed</h3>
+            @foreach (var completedTask in Model.CompletedTasks)
+            {
+                <div class="card bg-success">
+                    <partial name="_TaskCard" model="@completedTask" />
+                </div>
+            }
+        </section>
+        <section class="col-md-4 mb-3">
+            <h3 class="text-danger">Not completed</h3>
+            @foreach (var notCompletedTask in Model.NotCompletedTasks)
+            {
+                <div class="card bg-danger">
+                    <partial name="_TaskCard" model="@notCompletedTask" />
+                </div>
+            }
+        </section>
+    </section>
+</div>
+
+<partial name="_AlertPartial" model="@Model.Alert" />

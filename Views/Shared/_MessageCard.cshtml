@@ -1,0 +1,26 @@
+@{
+    const string MessageCardWidth = "55vw";
+}
+
+@model Message
+
+@if (Model.SenderId != Context.GetCurrentUserId())
+{
+    <div class="card border-dark mb-3 mx-auto" style="width: @MessageCardWidth;">
+        <div class="card-header">@Model.SenderName</div>
+        <div class="card-body text-dark">
+            <p class="card-text">@Model.Text</p>
+            <span class="text-info">@Model.DateSent.ToString(@"dd.MM.yyyy, h:mm tt")</span>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card border-info mb-3 mx-auto" style="width: @MessageCardWidth;">
+        <div class="card-header">@Model.SenderName</div>
+        <div class="card-body text-dark">
+            <p class="card-text">@Model.Text</p>
+            <span class="text-info">@Model.DateSent.ToString(@"dd.MM.yyyy, h:mm tt")</span>
+        </div>
+    </div>
+}

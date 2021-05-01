@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@model EditDirectoryViewModel
+
+<h3 class="mb-3">Edit directory - @Model.Directory.Name</h3>
+<form asp-action="UpdateDirectory" class="d-flex flex-column justify-content-center w-50 mx-auto border rounded p-3">
+    <input type="hidden" asp-for=@Model.Directory.Id />
+    <input type="hidden" asp-for=@Model.Directory.ParentDirectoryId />
+    <div class="form-group">
+        <label>Directory name</label>
+        <input asp-for=@Model.Directory.Name type="text" class="form-control" placeholder="Directory name..." />
+        <span class="text-danger" asp-validation-for=@Model.Directory.Name></span>
+    </div>
+    <button class="btn btn-secondary" type="submit">Save changes</button>
+</form>

@@ -1,0 +1,65 @@
+@model StoragePartialViewModel
+
+<section id="storage">
+    @if (Model.Directories.Any())
+    {
+        <h5 class="text-center">Directories</h5>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-secondary">
+                    <tr class="text-center">
+                        <th scope="col">Name</th>
+                        <th scope="col">Date updated</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var directory in Model.Directories)
+                    {
+                        <partial name="_DirectoryCard" model=@directory />
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model.Files.Any())
+    {
+        <h5 class="text-center mb-3"><strong>Current directory:</strong> @Model.Files.Count files</h5>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-secondary">
+                    <tr class="text-center">
+                        <th scope="col">Name</th>
+                        <th scope="col">Date created</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">
+                            <form asp-action="SortFiles" asp-controller="Storage"
+                                class="d-flex flex-row justify-content-around align-items-center">
+                                <input type="hidden" asp-for=@Model.DirectoryId />
+                                <input type="hidden" asp-for=@Model.IsPrivate />
+                                <select class="form-control w-50" asp-for=@Model.SortType>
+                                    <option value="0">Date descending</option>
+                                    <option value="1">Date ascending</option>
+                                    <option value="2">Name ascending</option>
+                                    <option value="3">Name descending</option>
+                                </select>
+                                <button type="submit" class="btn btn-secondary"><i class="fas fa-sort"></i></button>
+                            </form>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var file in Model.Files)
+                    {
+                        <partial name="_FileCard" model=@file />
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else if (!Model.Files.Any() && !Model.Directories.Any())
+    {
+        <h4 class="empty-list-text">Any files uploaded...</h4>
+    }
+</section>

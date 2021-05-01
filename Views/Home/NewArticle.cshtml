@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@model EditArticleViewModel
+
+<h2>New article</h2>
+<form asp-action="PublishArticle" class="d-flex flex-column justify-content-center w-50 mx-auto border rounded p-2">
+    <div class="form-group">
+        <label asp-for="ArticleTitle">Article title</label>
+        <input type="text" asp-for="ArticleTitle" placeholder="Article title..." required class="form-control" />
+        <span asp-validation-for="ArticleTitle" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Content">Content</label>
+        <textarea type="text" asp-for="Content" placeholder="Content..." rows="15" required
+            class="form-control"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Publish article</button>
+</form>
+
+<partial name="_AlertPartial" model="@Model.Alert" />

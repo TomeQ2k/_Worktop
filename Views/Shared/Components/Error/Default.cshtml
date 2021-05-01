@@ -1,0 +1,18 @@
+@{
+    var key = ViewBag.Key;
+    var error = ViewBag.Error;
+}
+
+@model ErrorComponentViewModel
+
+@if (key == null && !string.IsNullOrEmpty(error))
+{
+    <div class="text-danger text-center">@error</div>
+}
+else
+{
+    @if (key == Model.Error.Key)
+    {
+        <div class="text-danger text-center">@Model.Error.Value</div>
+    }
+}
