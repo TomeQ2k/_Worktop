@@ -22,10 +22,12 @@ namespace Worktop.Core.Services
         }
 
         public async Task<string> ReadFile(string filePath)
-           => await File.ReadAllTextAsync(filePath);
+            => await File.ReadAllTextAsync($"{WebRootPath}/{filePath}");
 
         public async Task<byte[]> Download(string filePath)
         {
+            filePath = $"{WebRootPath}/{filePath}";
+
             byte[] downloadedFile = default(byte[]);
 
             if (File.Exists(filePath))
@@ -34,6 +36,6 @@ namespace Worktop.Core.Services
             return downloadedFile;
         }
 
-        public bool DirectoryExists(string directoryPath) => Directory.Exists(directoryPath);
+        public bool DirectoryExists(string directoryPath) => Directory.Exists($"{WebRootPath}/{directoryPath}");
     }
 }

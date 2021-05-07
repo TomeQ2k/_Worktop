@@ -1,4 +1,3 @@
-using System.IO;
 using System.Threading.Tasks;
 
 namespace Worktop.Core.Services.Interfaces
@@ -9,6 +8,6 @@ namespace Worktop.Core.Services.Interfaces
 
         Task<byte[]> Download(string filePath);
 
-        bool DirectoryExists(string directoryPath) => Directory.Exists(directoryPath);
+        bool DirectoryExists(string directoryPath);
     }
 }

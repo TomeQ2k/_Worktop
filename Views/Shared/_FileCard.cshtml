@@ -3,7 +3,7 @@
 @inject IStorageSizeManager StorageSizeManager
 
 <tr class="text-center">
-    <td><a href="@Model.Url">@Model.Name</a></td>
+    <td><a href="@StorageLocation.BuildLocation(Model.Path)">@Model.Name</a></td>
     <td>@Model.DateCreated.ToString(@"dd.MM.yyyy, h:mm tt")</td>
     <td>@(StorageSizeManager.ConvertUnits(Model.Size))</td>
     <td class="d-flex flex-row justify-content-around align-items-center mb-3 p-1">
@@ -16,7 +16,7 @@
         @if (Model.UserId == null || Model.UserId == Context.GetCurrentUserId())
         {
             <form asp-action="DeleteFile" asp-route-fileId=@Model.Id asp-route-directoryId=@Model.DirectoryId
-                asp-route-isPrivate=@(Model.UserId != null) method="POST" class="text-center ml-1">
+            asp-route-isPrivate=@(Model.UserId != null) method="POST" class="text-center ml-1">
                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
             </form>
         }

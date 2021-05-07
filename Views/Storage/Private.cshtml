@@ -16,11 +16,13 @@
 
         @await Component.InvokeAsync("UploadForm", new {viewModel = UploadFormViewModel.Build(isPrivate: true)})
 
-        @await Component.InvokeAsync("DirectoryForm", new {viewModel = DirectoryFormViewModel.Build($"{FileReader.WebRootPath}/files/private/", isPrivate: true)})
+        @await Component.InvokeAsync("DirectoryForm", new {viewModel = DirectoryFormViewModel.Build("private/",
+        isPrivate: true)})
     </div>
 
-    <partial name="_StoragePartial" model=@StoragePartialViewModel.Build(Model.Files,  Model.Directories, isPrivate: true) />
-  
+    <partial name="_StoragePartial" model=@StoragePartialViewModel.Build(Model.Files, Model.Directories, isPrivate:
+        true) />
+
 </section>
 
 @await Component.InvokeAsync("StorageSizeProgress", new {isPrivateStorage = true})
@@ -28,5 +30,5 @@
 <partial name="_AlertPartial" model="@Model.Alert" />
 
 @section scripts {
-    <script src="~/js/fileInput.js"></script>
+<script src="~/js/fileInput.js"></script>
 }

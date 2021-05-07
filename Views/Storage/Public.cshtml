@@ -15,13 +15,13 @@
         </div>
 
         @await Component.InvokeAsync("UploadForm", new {viewModel = UploadFormViewModel.Build()})
-        
-        @await Component.InvokeAsync("DirectoryForm", new {viewModel = DirectoryFormViewModel.Build($"{FileReader.WebRootPath}/files/public/")})
+
+        @await Component.InvokeAsync("DirectoryForm", new {viewModel = DirectoryFormViewModel.Build("public/")})
 
     </div>
 
-    <partial name="_StoragePartial" model=@StoragePartialViewModel.Build(Model.Files,  Model.Directories) />
-  
+    <partial name="_StoragePartial" model=@StoragePartialViewModel.Build(Model.Files, Model.Directories) />
+
 </section>
 
 <partial name="_AlertPartial" model="@Model.Alert" />
@@ -29,5 +29,5 @@
 @await Component.InvokeAsync("StorageSizeProgress")
 
 @section scripts {
-    <script src="~/js/fileInput.js"></script>
+<script src="~/js/fileInput.js"></script>
 }

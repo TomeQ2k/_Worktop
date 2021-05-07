@@ -116,9 +116,9 @@ namespace Worktop.Controllers
 
             return await directoryManager.UpdateDirectory(directory.Id, directory.Name)
                 ? (directory.ParentDirectoryId == null ? (IActionResult)RedirectToAction(directory.UserId == null ? "Public" : "Private")
-                    : RedirectToAction("Directory", new { id = directory.Id })).PushAlert("Directory has been updated")
+                    : RedirectToAction("Directory", new { id = directory.Id, isPrivate = directory.UserId != null })).PushAlert("Directory has been updated")
                 : (directory.ParentDirectoryId == null ? RedirectToAction(directory.UserId == null ? "Public" : "Private")
-                    : RedirectToAction("Directory", new { id = directory.Id }));
+                    : RedirectToAction("Directory", new { id = directory.Id, isPrivate = directory.UserId != null }));
         }
 
         [HttpPost]

@@ -1,0 +1,37 @@
+[
+  {
+    "Id": 1,
+    "Title": "Backend Developer",
+    "Salary": 8000
+  },
+  {
+    "Id": 2,
+    "Title": "Frontend Developer",
+    "Salary": 6500
+  },
+  {
+    "Id": 3,
+    "Title": "Fullstack Developer",
+    "Salary": 12500
+  },
+  {
+    "Id": 4,
+    "Title": "CEO",
+    "Salary": 18000
+  },
+  {
+    "Id": 5,
+    "Title": "Data Scientist",
+    "Salary": 13500
+  },
+  {
+    "Id": 6,
+    "Title": "Machine Learning Engineer",
+    "Salary": 16000
+  },
+  {
+    "Id": 7,
+    "Title": "Administrator",
+    "Salary": 10000
+  }
+]

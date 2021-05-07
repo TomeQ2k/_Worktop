@@ -21,13 +21,6 @@ namespace Worktop.Core.Builders
             return this;
         }
 
-        public IFileBuilder SetUrl(string url)
-        {
-            this.file.Url = url;
-
-            return this;
-        }
-
         public IFileBuilder WithSize(uint size)
         {
             this.file.Size = size;

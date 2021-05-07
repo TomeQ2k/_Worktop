@@ -183,6 +183,8 @@ namespace Worktop
                 endpoints.MapHub<GlobalChatHub>(Routes.GlobalChatHubRoute);
                 endpoints.MapHub<RoomsChatHub>(Routes.RoomsChatHubRoute);
             });
+
+            StorageLocation.Init(Configuration.GetValue<string>(AppSettingsKeys.ServerAddress));
         }
     }
 }

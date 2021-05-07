@@ -50,7 +50,7 @@ namespace Worktop.Core.Services
                 return false;
             }
 
-            string filePath = !isPrivate ? @"public\" : $@"private\";
+            string filePath = !isPrivate ? @"public/" : $@"private/";
 
             if (!string.IsNullOrEmpty(directoryId))
             {
@@ -65,7 +65,6 @@ namespace Worktop.Core.Services
                 var fileToStore = new FileBuilder()
                             .SetName(file.FileName)
                             .SetPath(uploadedFile.Path)
-                            .SetUrl(uploadedFile.Url)
                             .WithSize(uploadedFile.Size)
                             .InDirectory(directoryId)
                             .AssignedTo(userId: !isPrivate ? null : currentUserId)

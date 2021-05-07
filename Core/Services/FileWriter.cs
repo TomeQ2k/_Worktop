@@ -40,15 +40,17 @@ namespace Worktop.Core.Services
 
         public void Delete(string filePath)
         {
+            filePath = string.IsNullOrEmpty(filePath) ? $"{WebRootPath}/" : $"{WebRootPath}/{filePath}";
+
             if (File.Exists(filePath))
                 File.Delete(filePath);
         }
 
         public bool CreateDirectory(string directoryPath)
         {
-            if (!Directory.Exists(directoryPath))
+            if (!Directory.Exists($"{WebRootPath}/files/{directoryPath}"))
             {
-                Directory.CreateDirectory(directoryPath);
+                Directory.CreateDirectory($"{WebRootPath}/files/{directoryPath}");
                 return true;
             }
 
@@ -57,6 +59,8 @@ namespace Worktop.Core.Services
 
         public bool DeleteDirectory(string directoryPath, bool recursive = true)
         {
+            directoryPath = string.IsNullOrEmpty(directoryPath) ? $"{WebRootPath}/" : $"{WebRootPath}/{directoryPath}";
+
             if (Directory.Exists(directoryPath))
             {
                 Directory.Delete(directoryPath, recursive: recursive);
@@ -68,7 +72,7 @@ namespace Worktop.Core.Services
 
         public string MoveDirectory(string oldPath, string newPath)
         {
-            Directory.Move(oldPath, newPath);
+            Directory.Move($"{WebRootPath}/files/{oldPath}", $"{WebRootPath}/files/{newPath}");
             return newPath;
         }
 
@@ -81,7 +85,7 @@ namespace Worktop.Core.Services
 
             var uploadFile = BuildFileModel(filePath, Path.GetExtension(file.FileName), (uint)file.Length / StorageSizeManager.UnitConversionMultiplier);
 
-            using (var stream = System.IO.File.Create(uploadFile.Path))
+            using (var stream = System.IO.File.Create(uploadFile.FullPath))
             {
                 await file.CopyToAsync(stream);
             }
@@ -91,18 +95,19 @@ namespace Worktop.Core.Services
 
         private FileModel BuildFileModel(string filePath, string fileExtension, uint fileSize)
         {
-            var fullPath = filePath == null ? $"{WebRootPath}/files/" : $"{WebRootPath}/files/{filePath}/";
-            var fileUrl = filePath == null ? $"{Configuration.GetValue<string>(AppSettingsKeys.ServerAddress)}files/" : $"{Configuration.GetValue<string>(AppSettingsKeys.ServerAddress)}files/{filePath}/";
+            var (relativePath, fullPath) = ($"/files/{filePath}/", $"{WebRootPath}/files/{filePath}/");
+            var fileUrl = $"{Configuration.GetValue<string>(AppSettingsKeys.ServerAddress)}/files/{filePath}/";
 
             if (!Directory.Exists(fullPath))
                 Directory.CreateDirectory(fullPath);
 
             string fileName = $"{Utils.NewGuid(length: 32)}{fileExtension}";
 
+            relativePath += fileName;
             fullPath += fileName;
             fileUrl += fileName;
 
-            return new FileModel(fullPath, fileUrl, fileSize);
+            return new FileModel(relativePath, fileUrl, fileSize, fullPath: fullPath);
         }
 
         #endregion

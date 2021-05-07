@@ -22,7 +22,7 @@ namespace Worktop.Core.Services
 
         public async Task<bool> InsertJobsFromFile()
         {
-            var jsonJobs = await fileReader.ReadFile($"{fileReader.WebRootPath}{JobsFilePath}");
+            var jsonJobs = await fileReader.ReadFile(JobsFilePath);
             var jobs = jsonJobs.FromJSON<IEnumerable<Job>>();
 
             if ((await database.JobRepository.Find(j => j != null) == null))

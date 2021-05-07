@@ -62,8 +62,8 @@ namespace Worktop.Core.Services
                 directory.Name = name;
 
                 string newPath = directory.UserId == null
-                    ? await filePathBuilder.BuildFilePath(directory, $"{fileReader.WebRootPath}/files/public/")
-                    : await filePathBuilder.BuildFilePath(directory, $"{fileReader.WebRootPath}/files/private/");
+                    ? await filePathBuilder.BuildFilePath(directory, "public/")
+                    : await filePathBuilder.BuildFilePath(directory, "private/");
 
                 if (fileReader.DirectoryExists(newPath))
                 {
@@ -71,7 +71,11 @@ namespace Worktop.Core.Services
                     return false;
                 }
 
+                fileWriter.DeleteDirectory(directory.Path);
+
                 directory.DateUpdated = DateTime.Now;
+
+                newPath = $"{newPath.Remove(newPath.Length - 1)}{(directory.UserId == null ? string.Empty : $"#{currentUserId.ToString()}")}";
                 directory.Path = fileWriter.MoveDirectory(directory.Path, newPath);
 
                 database.DirectoryRepository.Update(directory);
