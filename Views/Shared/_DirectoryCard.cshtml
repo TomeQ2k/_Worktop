@@ -9,11 +9,9 @@
         @if (Model.UserId == null || Model.UserId ==
         Context.GetCurrentUserId())
         {
-            <a asp-action="EditDirectory" asp-controller="Storage" asp-route-directoryId=@Model.Id
-                class="btn btn-secondary"><i class="fas fa-edit"></i></a>
             <form asp-action="DeleteDirectory" asp-controller="Storage" asp-route-directoryId=@Model.Id
-                asp-route-isPrivate=@(Model.UserId != null) asp-route-hasParentDirectory=@(Model.ParentDirectoryId != null)
-                method="POST" class="text-center ml-1">
+            asp-route-isPrivate=@(Model.UserId != null) asp-route-hasParentDirectory=@(Model.ParentDirectoryId != null)
+            method="POST" class="text-center ml-1">
                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
             </form>
         }

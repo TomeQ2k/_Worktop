@@ -16,7 +16,8 @@
 
         @await Component.InvokeAsync("UploadForm", new {viewModel = UploadFormViewModel.Build(isPrivate: true)})
 
-        @await Component.InvokeAsync("DirectoryForm", new {viewModel = DirectoryFormViewModel.Build("private/",
+        @await Component.InvokeAsync("DirectoryForm", new {viewModel =
+        DirectoryFormViewModel.Build($"private/{Context.GetCurrentUserId()}/",
         isPrivate: true)})
     </div>
 

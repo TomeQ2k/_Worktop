@@ -50,7 +50,7 @@ namespace Worktop.Core.Services
                 return false;
             }
 
-            string filePath = !isPrivate ? @"public/" : $@"private/";
+            string filePath = !isPrivate ? @"public/" : $@"private/{currentUserId}/";
 
             if (!string.IsNullOrEmpty(directoryId))
             {

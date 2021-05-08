@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Worktop.Core.Enums;
 using Worktop.Core.Extensions;
 using Worktop.Core.Services.Interfaces;
-using Worktop.Models.Domain;
 using Worktop.ViewModels;
 using Worktop.ViewModels.Components;
 using Worktop.ViewModels.Partials;
@@ -18,7 +17,6 @@ namespace Worktop.Controllers
 
         private static StorageViewModel storageViewModel;
         private static DirectoryViewModel directoryViewModel;
-        private static EditDirectoryViewModel editDirectoryViewModel;
 
         public StorageController(IStorageManager storageManager, IDirectoryManager directoryManager, IMimeMappingService mimeMappingService)
         {
@@ -58,10 +56,6 @@ namespace Worktop.Controllers
             return previousDirectory != null ? (IActionResult)RedirectToAction("Directory", new { id = previousDirectory.Id, isPrivate = isPrivate })
                 : RedirectToAction(!isPrivate ? "Public" : "Private");
         }
-
-        [HttpGet]
-        public async Task<IActionResult> EditDirectory([FromQuery] string directoryId)
-            => View(editDirectoryViewModel = (EditDirectoryViewModel)new EditDirectoryViewModel(await directoryManager.GetDirectory(directoryId)).WithError());
 
         [HttpPost]
         public async Task<IActionResult> UploadFiles([FromForm] UploadFormViewModel viewModel)
@@ -106,19 +100,6 @@ namespace Worktop.Controllers
                         : RedirectToAction("Directory", new { id = viewModel.DirectoryId, isPrivate = viewModel.IsPrivate })).PushAlert("Directory has been created")
                     : (viewModel.DirectoryId == null ? (IActionResult)RedirectToAction(!viewModel.IsPrivate ? "Public" : "Private", storageViewModel)
                         : RedirectToAction("Directory", new { id = viewModel.DirectoryId, isPrivate = viewModel.IsPrivate }));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UpdateDirectory(Directory directory)
-        {
-            if (!ModelState.IsValid)
-                return View("EditDirectory", editDirectoryViewModel);
-
-            return await directoryManager.UpdateDirectory(directory.Id, directory.Name)
-                ? (directory.ParentDirectoryId == null ? (IActionResult)RedirectToAction(directory.UserId == null ? "Public" : "Private")
-                    : RedirectToAction("Directory", new { id = directory.Id, isPrivate = directory.UserId != null })).PushAlert("Directory has been updated")
-                : (directory.ParentDirectoryId == null ? RedirectToAction(directory.UserId == null ? "Public" : "Private")
-                    : RedirectToAction("Directory", new { id = directory.Id, isPrivate = directory.UserId != null }));
         }
 
         [HttpPost]

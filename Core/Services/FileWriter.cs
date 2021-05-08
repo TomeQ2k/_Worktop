@@ -59,7 +59,7 @@ namespace Worktop.Core.Services
 
         public bool DeleteDirectory(string directoryPath, bool recursive = true)
         {
-            directoryPath = string.IsNullOrEmpty(directoryPath) ? $"{WebRootPath}/" : $"{WebRootPath}/{directoryPath}";
+            directoryPath = string.IsNullOrEmpty(directoryPath) ? $"{WebRootPath}/files/" : $"{WebRootPath}/files/{directoryPath}";
 
             if (Directory.Exists(directoryPath))
             {
@@ -95,8 +95,8 @@ namespace Worktop.Core.Services
 
         private FileModel BuildFileModel(string filePath, string fileExtension, uint fileSize)
         {
-            var (relativePath, fullPath) = ($"/files/{filePath}/", $"{WebRootPath}/files/{filePath}/");
-            var fileUrl = $"{Configuration.GetValue<string>(AppSettingsKeys.ServerAddress)}/files/{filePath}/";
+            var (relativePath, fullPath) = ($"/files/{filePath}", $"{WebRootPath}/files/{filePath}");
+            var fileUrl = $"{Configuration.GetValue<string>(AppSettingsKeys.ServerAddress)}/files/{filePath}";
 
             if (!Directory.Exists(fullPath))
                 Directory.CreateDirectory(fullPath);
