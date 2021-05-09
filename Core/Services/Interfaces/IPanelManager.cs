@@ -15,5 +15,7 @@ namespace Worktop.Core.Services.Interfaces
         Task<IEnumerable<Job>> GetJobs();
 
         Task<bool> AssignJob(int jobId, int workerId);
+
+        Task<bool> DeleteWorker(int workerId);
     }
 }

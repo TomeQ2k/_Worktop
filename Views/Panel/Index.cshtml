@@ -73,7 +73,7 @@
                             <a asp-action="Details" asp-route-id="@worker.Id" class="btn btn-secondary">Details</a>
                         </td>
                         <td>
-                            <form asp-action="Delete" asp-route-workerId=@worker.Id method="POST">
+                            <form asp-action="DeleteWorker" asp-controller="Panel" asp-route-workerId=@worker.Id method="POST">
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>

@@ -64,5 +64,11 @@ namespace Worktop.Controllers
             return await opinionManager.SendOpinion(mapper.Map<Opinion>(viewModel))
                 ? (IActionResult)RedirectToAction("Details", new { id = workerViewModel.Id }).PushAlert("Opinion was sent") : this.ErrorPage();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteWorker([FromQuery] int workerId)
+            => await panelManager.DeleteWorker(workerId)
+                ? (IActionResult)RedirectToAction("Index")
+                : this.ErrorPage();
     }
 }

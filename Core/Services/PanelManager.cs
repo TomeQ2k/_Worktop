@@ -52,5 +52,14 @@ namespace Worktop.Core.Services
 
             return await database.Complete();
         }
+
+        public async Task<bool> DeleteWorker(int workerId)
+        {
+            var worker = await GetWorker(workerId);
+
+            database.UserRepository.Delete(worker);
+
+            return await database.Complete();
+        }
     }
 }
