@@ -64,9 +64,9 @@ namespace Worktop.Controllers
         public IActionResult CreateRoom() => View(new EditRoomViewModel());
 
         [HttpGet]
-        public IActionResult EditRoom(string id)
+        public async Task<IActionResult> EditRoom(string id)
         {
-            var room = chatRoomsManager.GetRoom(id);
+            var room = await chatRoomsManager.GetRoom(id);
 
             return room != null ? (IActionResult)View(mapper.Map<EditRoomViewModel>(room)) : this.ErrorPage();
         }
