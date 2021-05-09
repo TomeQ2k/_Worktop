@@ -6,7 +6,9 @@ namespace Worktop.Core.Helpers
 
         public static void Init(string serverAddress) => ServerAddress = serverAddress;
 
-        public static string BuildLocation(string path) =>
-            $"{ServerAddress}{(path.StartsWith("/") ? path : $"/{path}")}";
+        public static string BuildLocation(string path)
+            => !path.Contains("http")
+                ? $"{ServerAddress}{(path.StartsWith("/") ? path : $"/{path}")}"
+                : path;
     }
 }
