@@ -1,7 +1,7 @@
-using System.Linq;
 using Worktop.Core.Services.Interfaces;
 using Worktop.Core.Helpers;
 using Worktop.BackgroundServices.Interfaces;
+using System.Threading.Tasks;
 
 namespace Worktop.BackgroundServices
 {
@@ -16,23 +16,21 @@ namespace Worktop.BackgroundServices
             this.jobService = jobService;
         }
 
-        public void Seed()
+        public async Task Seed()
         {
-            InsertRoles();
-            InsertJobs();
+            await InsertRoles();
+            await InsertJobs();
         }
 
         #region private
 
-        private void InsertRoles()
+        private async Task InsertRoles()
         {
-            Constants.RolesToSeed.ToList().ForEach((roleName) =>
-            {
-                rolesService.CreateRole(roleName).Wait();
-            });
+            foreach (var roleName in Constants.RolesToSeed)
+                await rolesService.CreateRole(roleName);
         }
 
-        private async void InsertJobs() => await jobService.InsertJobsFromFile();
+        private async Task InsertJobs() => await jobService.InsertJobsFromFile();
 
         #endregion
     }
