@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Worktop.Core.Extensions;
 using Worktop.Core.Services.Interfaces;
@@ -25,7 +26,7 @@ namespace Worktop.Core.Services
             var jsonJobs = await fileReader.ReadFile(JobsFilePath);
             var jobs = jsonJobs.FromJSON<IEnumerable<Job>>();
 
-            if ((await database.JobRepository.Find(j => j != null) == null))
+            if ((await database.JobRepository.Fetch()).Count() == 0)
                 database.JobRepository.AddRange(jobs);
 
             return await database.Complete();
