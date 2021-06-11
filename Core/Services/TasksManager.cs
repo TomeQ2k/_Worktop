@@ -58,6 +58,9 @@ namespace Worktop.Core.Services
         {
             var task = await GetTask(taskId);
 
+            if (task == null)
+                return false;
+
             if (!await CanExecute(task))
                 return false;
 
@@ -73,6 +76,9 @@ namespace Worktop.Core.Services
         {
             var task = await GetTask(taskId);
 
+            if (task == null)
+                return false;
+
             if (!await CanExecute(task))
                 return false;
 
@@ -85,10 +91,14 @@ namespace Worktop.Core.Services
         {
             var task = await GetTask(taskId);
 
+            if (task == null)
+                return false;
+
             if (task.ExecutorId != null && !await CanExecute(task))
                 return false;
 
             task.ExecutorId = progress != TaskProgress.Unassigned ? (int?)currentUserId : null;
+
             task.Progress = progress;
 
             database.TaskRepository.Update(task);
