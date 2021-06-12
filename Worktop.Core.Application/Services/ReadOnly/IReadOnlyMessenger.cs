@@ -7,6 +7,6 @@ namespace Worktop.Core.Application.Services.ReadOnly
 {
     public interface IReadOnlyMessenger
     {
-        Task<PagedList<Message>> GetMessages(FetchMessagesParams filterParams);
+        Task<PagedList<Message>> GetMessages(MessageFiltersParams filtersParams);
     }
 }

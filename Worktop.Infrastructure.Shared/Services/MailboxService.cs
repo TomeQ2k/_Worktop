@@ -29,11 +29,11 @@ namespace Worktop.Infrastructure.Shared.Services
             this.currentUserId = httpContextAccessor.HttpContext.GetCurrentUserId();
         }
 
-        public async Task<PagedList<Mail>> GetMails(GetMailsParams filterParams)
-            => (PagedList<Mail>)await database.MailRepository.GetUserMails(currentUserId, (filterParams.PageNumber, filterParams.PageSize));
+        public async Task<PagedList<Mail>> GetMails(MailFiltersParams filtersParams)
+            => (PagedList<Mail>)await database.MailRepository.GetUserMails(currentUserId, (filtersParams.PageNumber, filtersParams.PageSize));
 
-        public async Task<PagedList<Mail>> FilterMails(GetMailsParams filterParams)
-            => (PagedList<Mail>)await database.MailRepository.GetFilteredMails(currentUserId, filterParams, (filterParams.PageNumber, filterParams.PageSize));
+        public async Task<PagedList<Mail>> FilterMails(MailFiltersParams filtersParams)
+            => (PagedList<Mail>)await database.MailRepository.GetFilteredMails(currentUserId, filtersParams, (filtersParams.PageNumber, filtersParams.PageSize));
 
         public async Task<Mail> SendMail(Mail mail)
         {

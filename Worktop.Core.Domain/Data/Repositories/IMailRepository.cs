@@ -8,6 +8,6 @@ namespace Worktop.Core.Domain.Data.Repositories
     public interface IMailRepository : IRepository<Mail>
     {
         Task<IPagedList<Mail>> GetUserMails(int userId, (int PageNumber, int PageSize) pagination);
-        Task<IPagedList<Mail>> GetFilteredMails(int userId, IMailFilterParams filters, (int PageNumber, int PageSize) pagination);
+        Task<IPagedList<Mail>> GetFilteredMails(int userId, IMailFiltersParams filters, (int PageNumber, int PageSize) pagination);
     }
 }

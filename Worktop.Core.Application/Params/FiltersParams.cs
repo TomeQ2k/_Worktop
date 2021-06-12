@@ -1,6 +1,6 @@
 namespace Worktop.Core.Application.Params
 {
-    public abstract class FilterParams
+    public abstract class FiltersParams
     {
         protected const int MaxPageSize = int.MaxValue;
         protected const int MinPageNumber = 1;
@@ -19,7 +19,7 @@ namespace Worktop.Core.Application.Params
             set => pageSize = (value > MaxPageSize) ? MaxPageSize : value;
         }
 
-        public FilterParams CurrentPage(int currentPage)
+        public FiltersParams CurrentPage(int currentPage)
         {
             PageNumber = currentPage;
             return this;

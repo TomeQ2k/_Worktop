@@ -40,7 +40,7 @@ namespace Worktop.Infrastructure.Persistence.Database.Repositories
                 .Include(u => u.Job)
                 .ToPagedList<User>(pagination.PageNumber, pagination.PageSize);
 
-        public async Task<IPagedList<User>> GetFilteredWorkers(IWorkerFilterParams filters, (int PageNumber, int PageSize) pagination)
+        public async Task<IPagedList<User>> GetFilteredWorkers(IWorkerFiltersParams filters, (int PageNumber, int PageSize) pagination)
         {
             var workers = context.Users.AsQueryable();
 

@@ -30,17 +30,17 @@ namespace Worktop.WebApp.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Index()
-            => View(new PanelViewModel(await panelManager.GetWorkers(new FilterWorkersParams())));
+            => View(new PanelViewModel(await panelManager.GetWorkers(new WorkerFiltersParams())));
 
         [HttpPost]
         public async Task<IActionResult> FilterWorkers(PanelViewModel viewModel, [FromQuery] int pageNumber = 1)
-            => View("Index", viewModel.FilterWorkers(await panelManager.FilterWorkers(FilterWorkersParams.Build
+            => View("Index", viewModel.FilterWorkers(await panelManager.FilterWorkers(WorkerFiltersParams.Build
             (
                 viewModel.UserName,
                 viewModel.Email,
                 viewModel.SortType,
                 viewModel.IsAdmin
-            ).CurrentPage(pageNumber) as FilterWorkersParams)));
+            ).CurrentPage(pageNumber) as WorkerFiltersParams)));
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)

@@ -33,14 +33,14 @@ namespace Worktop.WebApp.Controllers
         {
             ViewBag.CurrentUserName = HttpContext.User.Identity.Name;
 
-            return View(new GlobalChatViewModel(await messenger.GetMessages(new FetchMessagesParams())).WithAlert());
+            return View(new GlobalChatViewModel(await messenger.GetMessages(new MessageFiltersParams())).WithAlert());
         }
 
         [HttpGet]
         public async Task<IActionResult> FetchMessages([FromQuery] int pageNumber = 1)
         {
             var messages =
-                await messenger.GetMessages(new FetchMessagesParams().CurrentPage(pageNumber) as FetchMessagesParams);
+                await messenger.GetMessages(new MessageFiltersParams().CurrentPage(pageNumber) as MessageFiltersParams);
 
             return Ok(new {messages, totalPages = messages.TotalPages});
         }

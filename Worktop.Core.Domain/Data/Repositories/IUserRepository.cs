@@ -12,6 +12,6 @@ namespace Worktop.Core.Domain.Data.Repositories
         Task<User> FindUserToLogin(string email);
 
         Task<IPagedList<User>> GetWorkers((int PageNumber, int PageSize) pagination);
-        Task<IPagedList<User>> GetFilteredWorkers(IWorkerFilterParams filters, (int PageNumber, int PageSize) pagination);
+        Task<IPagedList<User>> GetFilteredWorkers(IWorkerFiltersParams filters, (int PageNumber, int PageSize) pagination);
     }
 }

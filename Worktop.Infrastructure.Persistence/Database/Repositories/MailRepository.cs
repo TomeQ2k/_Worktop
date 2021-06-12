@@ -18,7 +18,7 @@ namespace Worktop.Infrastructure.Persistence.Database.Repositories
                  .OrderByDescending(m => m.DateSent)
                  .ToPagedList<Mail>(pagination.PageNumber, pagination.PageSize);
 
-        public async Task<IPagedList<Mail>> GetFilteredMails(int userId, IMailFilterParams filters, (int PageNumber, int PageSize) pagination)
+        public async Task<IPagedList<Mail>> GetFilteredMails(int userId, IMailFiltersParams filters, (int PageNumber, int PageSize) pagination)
         {
             var mails = context.Mails.Where(m => (m.SenderId == userId && !m.SenderDeleted) || (m.ReceiverId == userId && !m.ReceiverDeleted));
 

@@ -26,6 +26,8 @@ namespace Worktop.Core.Common.Helpers
         public const int MaxFilesCount = 5;
         public const int MaxFileSize = 5;
 
+        public const string LogFilesPath = "./wwwroot/logs/log-.txt";
+
         #endregion
 
         #region policies

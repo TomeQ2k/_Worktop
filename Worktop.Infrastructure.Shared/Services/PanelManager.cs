@@ -19,11 +19,11 @@ namespace Worktop.Infrastructure.Shared.Services
 
         public async Task<User> GetWorker(int workerId) => await database.UserRepository.GetWorker(workerId);
 
-        public async Task<PagedList<User>> GetWorkers(FilterWorkersParams filterParams)
-            => (PagedList<User>)await database.UserRepository.GetWorkers((filterParams.PageNumber, filterParams.PageSize));
+        public async Task<PagedList<User>> GetWorkers(WorkerFiltersParams filtersParams)
+            => (PagedList<User>)await database.UserRepository.GetWorkers((filtersParams.PageNumber, filtersParams.PageSize));
 
-        public async Task<PagedList<User>> FilterWorkers(FilterWorkersParams filterParams)
-            => (PagedList<User>)await database.UserRepository.GetFilteredWorkers(filterParams, (filterParams.PageNumber, filterParams.PageSize));
+        public async Task<PagedList<User>> FilterWorkers(WorkerFiltersParams filtersParams)
+            => (PagedList<User>)await database.UserRepository.GetFilteredWorkers(filtersParams, (filtersParams.PageNumber, filtersParams.PageSize));
 
         public async Task<IEnumerable<User>> GetAllWorkers() => await database.UserRepository.Fetch();
 

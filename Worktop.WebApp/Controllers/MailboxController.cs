@@ -30,16 +30,16 @@ namespace Worktop.WebApp.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Index(int pageNumber = 1)
-            => View(new MailboxViewModel(await mailboxService.GetMails(new GetMailsParams().CurrentPage(pageNumber) as GetMailsParams)).WithAlert());
+            => View(new MailboxViewModel(await mailboxService.GetMails(new MailFiltersParams().CurrentPage(pageNumber) as MailFiltersParams)).WithAlert());
 
         [HttpPost]
         public async Task<IActionResult> FilterMails(MailboxViewModel viewModel, [FromQuery] int pageNumber = 1)
-           => View("Index", viewModel.FilterMails(await mailboxService.FilterMails(GetMailsParams.Build
+           => View("Index", viewModel.FilterMails(await mailboxService.FilterMails(MailFiltersParams.Build
            (
                viewModel.Subject,
                viewModel.OnlyFavorites,
                viewModel.SortType
-           ).CurrentPage(pageNumber) as GetMailsParams)));
+           ).CurrentPage(pageNumber) as MailFiltersParams)));
 
         [HttpGet]
         public async Task<IActionResult> NewMail() => View(new MailViewModel(await mailboxService.FetchEmailAddresses()).WithError());

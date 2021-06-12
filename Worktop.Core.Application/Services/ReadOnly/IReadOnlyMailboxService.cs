@@ -8,8 +8,8 @@ namespace Worktop.Core.Application.Services.ReadOnly
 {
     public interface IReadOnlyMailboxService
     {
-        Task<PagedList<Mail>> GetMails(GetMailsParams filterParams);
-        Task<PagedList<Mail>> FilterMails(GetMailsParams filterParams);
+        Task<PagedList<Mail>> GetMails(MailFiltersParams filtersParams);
+        Task<PagedList<Mail>> FilterMails(MailFiltersParams filtersParams);
 
         Task<IEnumerable<string>> FetchEmailAddresses();
     }

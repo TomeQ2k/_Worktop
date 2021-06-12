@@ -77,6 +77,8 @@ namespace Worktop.WebApp
                 ContentTypeProvider = new FileExtensionContentTypeProvider()
             });
 
+            app.ConfigureLogging();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

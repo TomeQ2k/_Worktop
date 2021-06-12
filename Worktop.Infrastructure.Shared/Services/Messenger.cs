@@ -23,9 +23,9 @@ namespace Worktop.Infrastructure.Shared.Services
             this.currentUserId = httpContextAccessor.HttpContext.GetCurrentUserId();
         }
 
-        public async Task<PagedList<Message>> GetMessages(FetchMessagesParams filterParams)
+        public async Task<PagedList<Message>> GetMessages(MessageFiltersParams filtersParams)
         {
-            PagedList<Message> messages = (PagedList<Message>)await database.MessageRepository.GetMessagesInGlobalChat((filterParams.PageNumber, filterParams.PageSize));
+            PagedList<Message> messages = (PagedList<Message>)await database.MessageRepository.GetMessagesInGlobalChat((filtersParams.PageNumber, filtersParams.PageSize));
 
             messages.Reverse();
 
