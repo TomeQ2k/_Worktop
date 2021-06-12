@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Worktop.Core.Application\Worktop.Core.Application.csproj" />
+      <ProjectReference Include="..\Worktop.Core.Common\Worktop.Core.Common.csproj" />
+      <ProjectReference Include="..\Worktop.Core.Domain\Worktop.Core.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

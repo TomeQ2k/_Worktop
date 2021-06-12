@@ -1,0 +1,12 @@
+@model Worktop.WebApp.ViewModels.Components.ChangePhoneNumberViewModel
+
+<form asp-action="ChangePhoneNumber" asp-controller="Profile" method="POST"
+    class="d-flex flex-column justify-content-center w-50 mx-auto border rounded p-3 mb-3">
+    <h3>Change phone number</h3>
+    <div class="form-group">
+        <label asp-for="PhoneNumber">Phone number</label>
+        <input class="form-control" type="tel" asp-for="PhoneNumber" placeholder="Phone number..." />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Change phone number</button>
+</form>

@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@model Worktop.WebApp.ViewModels.OpinionsViewModel
+
+<h3>Your opinions</h3>
+<section class="d-flex flex-row justify-content-around mt-3">
+    <section class="col-sm-6 mb-3">
+        <h3 class="mb-3 text-success">Positive</h3>
+        @foreach (var positiveOpinion in Model.PositiveOpinions)
+        {
+            <div class="card bg-success">
+                <partial name="_OpinionCard" model="@positiveOpinion" />
+            </div>
+        }
+    </section>
+    <section class="col-sm-6 mb-3">
+        <h3 class="mb-3 text-danger">Negative</h3>
+        @foreach (var negativeOpinion in Model.NegativeOpinions)
+        {
+            <div class="card bg-danger">
+                <partial name="_OpinionCard" model="@negativeOpinion" />
+            </div>
+        }
+    </section>
+</section>

@@ -1,0 +1,40 @@
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@using Worktop.Core.Application.Extensions
+@model Worktop.WebApp.ViewModels.GlobalChatViewModel
+
+<section class="d-flex flex-row justify-content-around text-center">
+    <h3 class="mb-3">Global chat</h3>
+    <a asp-action="Index" class="btn btn-danger float-right h-100">Leave</a>
+</section>
+
+<section class="container mb-3">
+    <section id="chat" class="col-sm-12">
+        @foreach (var message in Model.Messages)
+        {
+            <partial name="_MessageCard" model="@message" />
+        }
+    </section>
+
+    @await Component.InvokeAsync("MessageForm", new {message = Model.Message})
+
+    <partial name="_AlertPartial" model="@Model.Alert" />
+</section>
+
+    <script>
+        const currentUserName = "@ViewBag.CurrentUserName";
+        const currentRoomId = null;
+        const currentUserId = @Context.GetCurrentUserId();
+    </script>
+
+@section scripts {
+    <script src="~/lib/signalr/signalr.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/js/message.js"></script>
+    <script src="~/js/signalrConstants.js"></script>
+    <script src="~/js/scroll.js"></script>
+    <script src="~/js/chat.js"></script>
+    <script src="~/js/signalrGlobalHandler.js"></script>
+}

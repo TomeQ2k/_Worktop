@@ -1,0 +1,25 @@
+@{
+    string alertTypeClass = Model?.Type switch
+    {
+        AlertType.Info => "alert-info",
+        AlertType.Success => "alert-success",
+        AlertType.Error => "alert-danger",
+        AlertType.Warning => "alert-warning",
+        AlertType.Primary => "alert-primary",
+        AlertType.Secondary => "alert-secondary",
+        _ => "alert-info"
+    };
+}
+
+@using Worktop.Core.Common.Enums
+@model Worktop.Core.Application.Models.Alert.Alert
+
+@if (Model?.Message != null)
+{
+    <div id="alert" class="alert @alertTypeClass alert-dismissible fade show" role="alert">
+        @Model.Message
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}

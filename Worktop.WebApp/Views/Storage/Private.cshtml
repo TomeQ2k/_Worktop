@@ -1,0 +1,40 @@
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@using Worktop.Core.Application.Services
+@using Worktop.Core.Common.Helpers
+@using Worktop.WebApp.ViewModels.Components
+@using Worktop.WebApp.ViewModels.Partials
+@using Worktop.Core.Application.Extensions
+@model Worktop.WebApp.ViewModels.StorageViewModel
+
+@inject IFileReader FileReader
+
+<h3 class="mb-3">Private storage</h3>
+
+<section class="container border rounded p-3" style="height: @Constants.StorageContainerHeight;">
+    <div class="mb-3" style="height: @Constants.StorageHeaderContainerHeight;">
+        <div class="mb-3">
+            @await Component.InvokeAsync("Error", new {error = Model.Error})
+        </div>
+
+        @await Component.InvokeAsync("UploadForm", new {viewModel = UploadFormViewModel.Build(isPrivate: true)})
+
+        @await Component.InvokeAsync("DirectoryForm", new {viewModel =
+            DirectoryFormViewModel.Build($"private/{Context.GetCurrentUserId()}/",
+                isPrivate: true)})
+    </div>
+
+    <partial name="_StoragePartial" model=@StoragePartialViewModel.Build(Model.Files, Model.Directories, isPrivate:
+        true) />
+
+</section>
+
+@await Component.InvokeAsync("StorageSizeProgress", new {isPrivateStorage = true})
+
+<partial name="_AlertPartial" model="@Model.Alert" />
+
+@section scripts {
+<script src="~/js/fileInput.js"></script>
+}

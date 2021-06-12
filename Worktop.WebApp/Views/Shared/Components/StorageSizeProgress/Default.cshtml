@@ -1,0 +1,43 @@
+@{
+    const string ProgressBarHeight = "40px";
+    const string ProgressBarWidth = "55vw";
+
+    uint currentStorageSize = await StorageSizeManager.CountStorageSize(isPrivateStorage: Model);
+    uint maxStorageSizeInGb = !Model ? StorageSizeManager.MaxPublicStorageSizeInGb :
+            StorageSizeManager.MaxPrivateStorageSizeInGb;
+    var maxStorageSize = maxStorageSizeInGb * Math.Pow(StorageSizeManager.GetUnitConversionMultiplier(), 2);
+
+    StorageProgressType storageProgressType = StorageProgressType.NotEmpty;
+
+    if (currentStorageSize == 0)
+        storageProgressType = StorageProgressType.Empty;
+    else if (currentStorageSize >= maxStorageSize)
+        storageProgressType = StorageProgressType.Full;
+
+    string GetInternalProgressBarWidth(StorageProgressType storageProgressType)
+    {
+        switch (storageProgressType)
+        {
+            case StorageProgressType.NotEmpty:
+                return "w-50";
+            case StorageProgressType.Empty:
+                return "w-0";
+            case StorageProgressType.Full:
+                return "w-100";
+            default: return "w-50";
+        }
+    }
+}
+
+@using Worktop.Core.Application.Services
+@using Worktop.Core.Common.Enums
+@model bool
+
+@inject IStorageSizeManager StorageSizeManager
+
+<div class="progress mt-3 mx-auto" style="height: @ProgressBarHeight; width: @ProgressBarWidth;">
+    <div class="progress-bar progress-bar-striped p-3 @GetInternalProgressBarWidth(storageProgressType)"
+        role="progressbar" aria-valuemin="0" aria-valuemax="@maxStorageSize" aria-valuenow="@currentStorageSize">
+        @StorageSizeManager.ConvertUnits(currentStorageSize) / @maxStorageSizeInGb GB
+    </div>
+</div>

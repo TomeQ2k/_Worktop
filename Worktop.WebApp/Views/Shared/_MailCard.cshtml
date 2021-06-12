@@ -1,0 +1,35 @@
+@{
+    const string MailCardWidth = "75vw";
+    const string MailButtonHeight = "40px";
+}
+
+@using Worktop.Core.Application.Extensions
+@model Worktop.WebApp.ViewModels.Partials.MailCardViewModel
+
+<div class="card align-self-center mb-3 @(!Model.Mail.IsFavorite ? "border-dark" : "border-info")"
+    style="width: @MailCardWidth;">
+    <div class="card-header text-center"><strong>@Model.Mail.Subject</strong></div>
+    <div class="card-body d-flex flex-row flex-wrap justify-content-around">
+        <p>@(Model.Mail.SenderId == Context.GetCurrentUserId() ? "To" :
+            "From"):
+            <span class="text-muted"><strong>@(Model.Mail.SenderId ==
+                    Context.GetCurrentUserId() ? Model.Mail.ToAddress :
+                    Model.Mail.FromAddress)</strong></span>
+        </p>
+        <p>Sent: <span class="text-muted"><strong>@Model.Mail.DateSent.ToString(@"dd.MM.yyyy, h:mm
+                    tt")</strong></span></p>
+        <div class="row">
+            <a asp-action="ToggleFavorite" asp-controller="Mailbox" asp-route-id=@Model.Mail.Id
+                asp-route-pageNumber=@Model.CurrentPage class="btn btn-info mr-2"
+                style="height: @MailButtonHeight;">@(!Model.Mail.IsFavorite ? "Favorite" :
+                "Unfavorite")</a>
+            <a asp-action="DeleteMail" asp-controller="Mailbox" asp-route-id=@Model.Mail.Id
+                asp-route-pageNumber=@Model.CurrentPage class="btn btn-danger"
+                style="height: @MailButtonHeight;">Delete</a>
+        </div>
+    </div>
+    <section class="container">
+        <p class="card-text"><strong>Content:</strong></p>
+        <p>@Model.Mail.Content</p>
+    </section>
+</div>
