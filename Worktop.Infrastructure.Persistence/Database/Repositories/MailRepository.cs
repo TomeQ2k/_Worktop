@@ -4,6 +4,7 @@ using Worktop.Core.Application.Extensions;
 using Worktop.Core.Common.Enums;
 using Worktop.Core.Domain.Data.Models;
 using Worktop.Core.Domain.Data.Repositories;
+using Worktop.Core.Domain.Data.Repositories.Params;
 using Worktop.Core.Domain.Entities;
 
 namespace Worktop.Infrastructure.Persistence.Database.Repositories
@@ -17,17 +18,17 @@ namespace Worktop.Infrastructure.Persistence.Database.Repositories
                  .OrderByDescending(m => m.DateSent)
                  .ToPagedList<Mail>(pagination.PageNumber, pagination.PageSize);
 
-        public async Task<IPagedList<Mail>> GetFilteredMails(int userId, string subject, bool onlyFavorites, MailsSortType sortType, (int PageNumber, int PageSize) pagination)
+        public async Task<IPagedList<Mail>> GetFilteredMails(int userId, IMailFilterParams filters, (int PageNumber, int PageSize) pagination)
         {
             var mails = context.Mails.Where(m => (m.SenderId == userId && !m.SenderDeleted) || (m.ReceiverId == userId && !m.ReceiverDeleted));
 
-            if (!string.IsNullOrEmpty(subject))
-                mails = mails.Where(m => m.Subject.ToLower().Contains(subject.ToLower()));
+            if (!string.IsNullOrEmpty(filters.Subject))
+                mails = mails.Where(m => m.Subject.ToLower().Contains(filters.Subject.ToLower()));
 
-            if (onlyFavorites)
+            if (filters.OnlyFavorites)
                 mails = mails.Where(m => m.IsFavorite);
 
-            mails = sortType switch
+            mails = filters.SortType switch
             {
                 MailsSortType.DateDescending => mails.OrderByDescending(m => m.DateSent),
                 MailsSortType.DateAscending => mails.OrderBy(m => m.DateSent),

@@ -23,7 +23,7 @@ namespace Worktop.Infrastructure.Shared.Services
             => (PagedList<User>)await database.UserRepository.GetWorkers((filterParams.PageNumber, filterParams.PageSize));
 
         public async Task<PagedList<User>> FilterWorkers(FilterWorkersParams filterParams)
-            => (PagedList<User>)await database.UserRepository.GetFilteredWorkers(filterParams.UserName, filterParams.Email, filterParams.SortType, filterParams.IsAdmin, (filterParams.PageNumber, filterParams.PageSize));
+            => (PagedList<User>)await database.UserRepository.GetFilteredWorkers(filterParams, (filterParams.PageNumber, filterParams.PageSize));
 
         public async Task<IEnumerable<User>> GetAllWorkers() => await database.UserRepository.Fetch();
 

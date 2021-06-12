@@ -33,7 +33,7 @@ namespace Worktop.Infrastructure.Shared.Services
             => (PagedList<Mail>)await database.MailRepository.GetUserMails(currentUserId, (filterParams.PageNumber, filterParams.PageSize));
 
         public async Task<PagedList<Mail>> FilterMails(GetMailsParams filterParams)
-            => (PagedList<Mail>)await database.MailRepository.GetFilteredMails(currentUserId, filterParams.Subject, filterParams.OnlyFavorites, filterParams.SortType, (filterParams.PageNumber, filterParams.PageSize));
+            => (PagedList<Mail>)await database.MailRepository.GetFilteredMails(currentUserId, filterParams, (filterParams.PageNumber, filterParams.PageSize));
 
         public async Task<Mail> SendMail(Mail mail)
         {

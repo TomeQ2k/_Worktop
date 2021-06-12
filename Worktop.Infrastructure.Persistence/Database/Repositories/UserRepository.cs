@@ -6,6 +6,7 @@ using Worktop.Core.Common.Enums;
 using Worktop.Core.Common.Helpers;
 using Worktop.Core.Domain.Data.Models;
 using Worktop.Core.Domain.Data.Repositories;
+using Worktop.Core.Domain.Data.Repositories.Params;
 using Worktop.Core.Domain.Entities;
 
 namespace Worktop.Infrastructure.Persistence.Database.Repositories
@@ -39,17 +40,17 @@ namespace Worktop.Infrastructure.Persistence.Database.Repositories
                 .Include(u => u.Job)
                 .ToPagedList<User>(pagination.PageNumber, pagination.PageSize);
 
-        public async Task<IPagedList<User>> GetFilteredWorkers(string userName, string email, WorkersSortType sortType, bool isAdmin, (int PageNumber, int PageSize) pagination)
+        public async Task<IPagedList<User>> GetFilteredWorkers(IWorkerFilterParams filters, (int PageNumber, int PageSize) pagination)
         {
             var workers = context.Users.AsQueryable();
 
-            if (!string.IsNullOrEmpty(userName))
-                workers = workers.Where(w => w.UserName.ToLower().Contains(userName.ToLower()));
+            if (!string.IsNullOrEmpty(filters.UserName))
+                workers = workers.Where(w => w.UserName.ToLower().Contains(filters.UserName.ToLower()));
 
-            if (!string.IsNullOrEmpty(email))
-                workers = workers.Where(w => w.Email.ToLower().Contains(email.ToLower()));
+            if (!string.IsNullOrEmpty(filters.Email))
+                workers = workers.Where(w => w.Email.ToLower().Contains(filters.Email.ToLower()));
 
-            workers = sortType switch
+            workers = filters.SortType switch
             {
                 WorkersSortType.None => workers,
                 WorkersSortType.SalaryAscending => workers.OrderBy(w => w.Job.Salary * (decimal)w.SalaryBonus),
@@ -63,7 +64,7 @@ namespace Worktop.Infrastructure.Persistence.Database.Repositories
                                 .ThenInclude(ur => ur.Role)
                              .Include(u => u.Job);
 
-            if (isAdmin)
+            if (filters.IsAdmin)
                 workers = workers.Where(u => u.UserRoles.Any(ur => ur.Role.Name == Utils.EnumToString(RoleName.Admin)));
 
             return await workers.ToPagedList<User>(pagination.PageNumber, pagination.PageSize);

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using Worktop.Core.Common.Enums;
 using Worktop.Core.Domain.Data.Models;
+using Worktop.Core.Domain.Data.Repositories.Params;
 using Worktop.Core.Domain.Entities;
 
 namespace Worktop.Core.Domain.Data.Repositories
@@ -12,6 +12,6 @@ namespace Worktop.Core.Domain.Data.Repositories
         Task<User> FindUserToLogin(string email);
 
         Task<IPagedList<User>> GetWorkers((int PageNumber, int PageSize) pagination);
-        Task<IPagedList<User>> GetFilteredWorkers(string username, string email, WorkersSortType sortType, bool isAdmin, (int PageNumber, int PageSize) pagination);
+        Task<IPagedList<User>> GetFilteredWorkers(IWorkerFilterParams filters, (int PageNumber, int PageSize) pagination);
     }
 }
