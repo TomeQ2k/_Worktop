@@ -2,7 +2,7 @@
     const string MessageTextWidth = "52vw";
 }
 
-@model Worktop.Core.Domain.Entities.Message
+@model MessageFormViewModel
 
 <form asp-action="SendMessage" asp-controller="Chat" asp-route-roomId="@ViewBag.RoomId"
     class="d-flex flex-row justify-content-center" data-ajax-begin="clearInputFields"

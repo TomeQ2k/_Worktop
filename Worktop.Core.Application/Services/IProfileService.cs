@@ -1,12 +1,10 @@
 using System.Threading.Tasks;
-using Worktop.Core.Domain.Entities;
+using Worktop.Core.Application.Services.ReadOnly;
 
 namespace Worktop.Core.Application.Services
 {
-    public interface IProfileService
+    public interface IProfileService : IReadOnlyProfileService
     {
-        Task<User> GetCurrentUser();
-
         Task<bool> ChangePassword(string oldPassword, string newPassword);
 
         Task<bool> ChangeEmail(string newEmail, string token);

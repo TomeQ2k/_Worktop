@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Worktop.Core.Application.SignalR;
+using Worktop.Core.Application.SignalR.Hubs;
 using Worktop.Core.Common.Helpers;
 using Worktop.WebApp.AppConfigs;
 

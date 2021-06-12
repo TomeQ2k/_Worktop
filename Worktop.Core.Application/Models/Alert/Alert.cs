@@ -2,7 +2,7 @@ using Worktop.Core.Common.Enums;
 
 namespace Worktop.Core.Application.Models.Alert
 {
-    public class Alert
+    public sealed class Alert
     {
         public AlertType Type { get; }
         public string Message { get; }

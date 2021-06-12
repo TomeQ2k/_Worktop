@@ -6,6 +6,7 @@ using Worktop.Core.Application.Extensions;
 using Worktop.Core.Application.Helpers;
 using Worktop.Core.Application.Models.Alert;
 using Worktop.Core.Application.Services;
+using Worktop.Core.Application.Services.ReadOnly;
 using Worktop.Core.Common.Enums;
 using Worktop.Core.Common.Helpers;
 using Worktop.Core.Domain.Data;
@@ -18,7 +19,7 @@ namespace Worktop.Infrastructure.Shared.Services
         private readonly UserManager<User> userManager;
         private readonly ICryptoService cryptoService;
         private readonly IEmailSender emailSender;
-        private readonly IAuthService authService;
+        private readonly IReadOnlyAuthService authService;
         private readonly IDatabase database;
 
         public IConfiguration Configuration { get; }
@@ -26,7 +27,7 @@ namespace Worktop.Infrastructure.Shared.Services
         private readonly int currentUserId;
 
         public ProfileService(UserManager<User> userManager, IHttpContextAccessor httpContextAccessor, ICryptoService cryptoService, IEmailSender emailSender,
-            IConfiguration configuration, IAuthService authService, IDatabase database)
+            IConfiguration configuration, IReadOnlyAuthService authService, IDatabase database)
         {
             this.userManager = userManager;
             this.cryptoService = cryptoService;

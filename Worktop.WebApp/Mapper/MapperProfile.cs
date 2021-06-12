@@ -12,11 +12,11 @@ namespace Worktop.WebApp.Mapper
         {
             CreateMap<User, ProfileViewModel>()
                 .ForMember(dest => dest.JobTitle, opt => opt.MapFrom(u => u.Job.Title))
-                .ForMember(dest => dest.TotalSalary, opt => opt.MapFrom(u => u.Job.Salary * (decimal) u.SalaryBonus));
+                .ForMember(dest => dest.TotalSalary, opt => opt.MapFrom(u => u.Job.Salary * (decimal)u.SalaryBonus));
             CreateMap<User, WorkerDetailsViewModel>()
                 .ForMember(dest => dest.JobTitle, opt => opt.MapFrom(u => u.Job.Title))
                 .ForMember(dest => dest.BaseSalary, opt => opt.MapFrom(u => u.Job.Salary))
-                .ForMember(dest => dest.TotalSalary, opt => opt.MapFrom(u => u.Job.Salary * (decimal) u.SalaryBonus));
+                .ForMember(dest => dest.TotalSalary, opt => opt.MapFrom(u => u.Job.Salary * (decimal)u.SalaryBonus));
 
             CreateMap<TaskItem, EditTaskViewModel>();
 

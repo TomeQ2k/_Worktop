@@ -2,13 +2,9 @@
     ViewData["Title"] = Model.Title;
 }
 
-@using Worktop.Core.Application.Services
-@using Worktop.Core.Common.Enums
-@using Worktop.Core.Application.Extensions
-@using Worktop.WebApp.ViewModels.Partials
-@model Worktop.WebApp.ViewModels.TasksViewModel
+@model TasksViewModel
 
-@inject IRolesService RolesService
+@inject IReadOnlyRolesService RolesService
 
 <div class="text-center">
     <h3>Tasks</h3>

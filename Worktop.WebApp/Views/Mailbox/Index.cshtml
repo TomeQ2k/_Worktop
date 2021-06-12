@@ -4,9 +4,7 @@
     const string HeaderWidth = "75vw";
 }
 
-@using Worktop.Core.Domain.Entities
-@using Worktop.WebApp.ViewModels.Partials
-@model Worktop.WebApp.ViewModels.MailboxViewModel
+@model MailboxViewModel
 
 <div class="d-flex flex-column justify-content-center mx-auto mb-3" style="width: @HeaderWidth;">
     <h3 class="text-center mb-3">Mailbox - @Model.Mails.TotalCount</h3>

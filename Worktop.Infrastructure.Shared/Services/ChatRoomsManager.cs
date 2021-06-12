@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Worktop.Core.Application.Extensions;
 using Worktop.Core.Application.Services;
+using Worktop.Core.Application.Services.ReadOnly;
 using Worktop.Core.Common.Enums;
 using Worktop.Core.Domain.Data;
 using Worktop.Core.Domain.Entities;
@@ -13,11 +14,11 @@ namespace Worktop.Infrastructure.Shared.Services
     public class ChatRoomsManager : IChatRoomsManager
     {
         private readonly IDatabase database;
-        private readonly IRolesService rolesService;
+        private readonly IReadOnlyRolesService rolesService;
 
         private readonly int currentUserId;
 
-        public ChatRoomsManager(IDatabase database, IHttpContextAccessor httpContextAccessor, IRolesService rolesService)
+        public ChatRoomsManager(IDatabase database, IHttpContextAccessor httpContextAccessor, IReadOnlyRolesService rolesService)
         {
             this.database = database;
             this.rolesService = rolesService;

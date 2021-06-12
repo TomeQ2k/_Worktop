@@ -8,6 +8,7 @@ using Worktop.Core.Application.Extensions;
 using Worktop.Core.Application.Models.Alert;
 using Worktop.Core.Application.Models.File;
 using Worktop.Core.Application.Services;
+using Worktop.Core.Application.Services.ReadOnly;
 using Worktop.Core.Common.Enums;
 using Worktop.Core.Domain.Data;
 using Worktop.Core.Domain.Entities;
@@ -20,12 +21,12 @@ namespace Worktop.Infrastructure.Shared.Services
         private readonly IFileReader fileReader;
         private readonly IFilePathBuilder filePathBuilder;
         private readonly IDatabase database;
-        private readonly IStorageSizeManager storageSizeManager;
+        private readonly IReadOnlyStorageSizeManager storageSizeManager;
 
         private readonly int? currentUserId;
 
         public StorageManager(IFileWriter fileWriter, IFileReader fileReader, IFilePathBuilder filePathBuilder, IDatabase database,
-            IStorageSizeManager storageSizeManager, IHttpContextAccessor httpContextAccessor)
+            IReadOnlyStorageSizeManager storageSizeManager, IHttpContextAccessor httpContextAccessor)
         {
             this.fileWriter = fileWriter;
             this.fileReader = fileReader;

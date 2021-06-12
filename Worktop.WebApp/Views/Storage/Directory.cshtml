@@ -2,12 +2,7 @@
     ViewData["Title"] = Model.Title;
 }
 
-@using Worktop.Core.Application.Services
-@using Worktop.Core.Common.Helpers
-@using Worktop.WebApp.ViewModels.Components
-@using Worktop.WebApp.ViewModels.Partials
-@using Worktop.Core.Application.Extensions
-@model Worktop.WebApp.ViewModels.DirectoryViewModel
+@model DirectoryViewModel
 
 @inject IFileReader FileReader
 @inject IFilePathBuilder FilePathBuilder

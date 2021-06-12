@@ -3,8 +3,7 @@
     const string MailButtonHeight = "40px";
 }
 
-@using Worktop.Core.Application.Extensions
-@model Worktop.WebApp.ViewModels.Partials.MailCardViewModel
+@model MailCardViewModel
 
 <div class="card align-self-center mb-3 @(!Model.Mail.IsFavorite ? "border-dark" : "border-info")"
     style="width: @MailCardWidth;">

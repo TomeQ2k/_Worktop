@@ -1,11 +1,17 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
+using Worktop.Core.Application.Helpers;
+using Worktop.Core.Domain.Entities;
 
-namespace Worktop.Core.Application.SignalR
+namespace Worktop.Core.Application.SignalR.Hubs
 {
-    public class MailboxHub : BaseHub
+    public class GlobalChatHub : BaseHub
     {
-        public MailboxHub(IConnectionManager connectionManager) : base(connectionManager) { }
+        public GlobalChatHub(IConnectionManager connectionManager) : base(connectionManager) { }
+
+        public async Task SendMessage(Message message)
+            => await Clients.All.SendAsync(SignalrActions.MESSAGE_RECEIVED, message);
 
         public async override Task OnConnectedAsync()
         {

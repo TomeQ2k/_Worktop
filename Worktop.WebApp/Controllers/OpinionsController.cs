@@ -2,17 +2,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Worktop.Core.Application.Services;
+using Worktop.Core.Application.Services.ReadOnly;
 using Worktop.WebApp.ViewModels;
 
 namespace Worktop.WebApp.Controllers
 {
     public class OpinionsController : Controller
     {
-        private readonly IOpinionManager opinionManager;
+        private readonly IReadOnlyOpinionManager opinionManager;
         private readonly IMapper mapper;
 
-        public OpinionsController(IOpinionManager opinionManager, IMapper mapper)
+        public OpinionsController(IReadOnlyOpinionManager opinionManager, IMapper mapper)
         {
             this.opinionManager = opinionManager;
             this.mapper = mapper;

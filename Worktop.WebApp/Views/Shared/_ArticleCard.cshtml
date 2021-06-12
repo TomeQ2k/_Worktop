@@ -1,26 +1,23 @@
-@using Worktop.Core.Application.Services
-@using Worktop.Core.Common.Enums
-@using Worktop.Core.Application.Extensions
-@model Worktop.Core.Domain.Entities.Article
+@model ArticleCardViewModel
 
-@inject IRolesService RolesService
+@inject IReadOnlyRolesService RolesService
 
 <div class="card bg-light m-3 col-sm-3">
     <div class="card-body d-flex flex-column justify-content-between">
         <div class="top-body">
-            <h5 class="card-title">@Model.Title</h5>
-            <p class="card-text">@Model.Content</p>
+            <h5 class="card-title">@Model.Article.Title</h5>
+            <p class="card-text">@Model.Article.Content</p>
         </div>
         <div class="bottom-body">
             <div class="row d-flex justify-content-around">
-                <span class="text-dark">Updated: <strong>@Model.DateUpdated.ToString("dd/MM/yyyy h:mm tt")</strong></span>
+                <span class="text-dark">Updated: <strong>@Model.Article.DateUpdated.ToString("dd/MM/yyyy h:mm tt")</strong></span>
             </div>
             @if (await RolesService.IsPermitted(RoleName.Admin, Context.GetCurrentUserId()))
             {
                 <div class="row d-flex justify-content-around m-3">
                     <a class="btn btn-secondary m-1" asp-action="EditArticle" asp-controller="Home"
-                        asp-route-id=@Model.Id>Edit</a>
-                    <form asp-action="DeleteArticle" asp-controller="Home" asp-route-id=@Model.Id>
+                        asp-route-id=@Model.Article.Id>Edit</a>
+                    <form asp-action="DeleteArticle" asp-controller="Home" asp-route-id=@Model.Article.Id>
                         <button type="submit" class="btn btn-danger m-1">Delete</button>
                     </form>
                 </div>

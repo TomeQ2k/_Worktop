@@ -2,12 +2,9 @@
     ViewData["Title"] = Model.Title;
 }
 
-@using Worktop.Core.Application.Services
-@using Worktop.Core.Common.Enums
-@using Worktop.Core.Application.Extensions
-@model Worktop.WebApp.ViewModels.HomeViewModel
+@model HomeViewModel
 
-@inject IRolesService RolesService
+@inject IReadOnlyRolesService RolesService
 
 @if (!await RolesService.IsPermitted(RoleName.Admin, Context.GetCurrentUserId()))
 {
@@ -24,7 +21,7 @@ else
 <section class="d-flex flex-row justify-content-center flex-wrap text-center">
     @foreach (var article in Model.Articles)
     {
-        <partial name="_ArticleCard" model="@article" />
+        <partial name="_ArticleCard" model="@ArticleCardViewModel.Build(article)" />
     }
 </section>
 

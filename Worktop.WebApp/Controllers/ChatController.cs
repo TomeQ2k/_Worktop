@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Worktop.Core.Application.Extensions;
 using Worktop.Core.Application.Params;
 using Worktop.Core.Application.Services;
-using Worktop.Core.Application.SignalR;
+using Worktop.Core.Application.SignalR.Hubs;
 using Worktop.Core.Domain.Entities;
 using Worktop.WebApp.ViewModels;
 using Worktop.WebApp.ViewModels.Components;

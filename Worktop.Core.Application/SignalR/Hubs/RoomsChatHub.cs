@@ -7,7 +7,7 @@ using Worktop.Core.Application.Helpers;
 using Worktop.Core.Common.Helpers;
 using Worktop.Core.Domain.Entities;
 
-namespace Worktop.Core.Application.SignalR
+namespace Worktop.Core.Application.SignalR.Hubs
 {
     public class RoomsChatHub : BaseHub
     {

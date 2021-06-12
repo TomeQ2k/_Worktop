@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Worktop.Core.Application.Builders;
 using Worktop.Core.Application.Extensions;
 using Worktop.Core.Application.Services;
+using Worktop.Core.Application.Services.ReadOnly;
 using Worktop.Core.Common.Enums;
 using Worktop.Core.Domain.Data;
 using Worktop.Core.Domain.Entities;
@@ -14,11 +15,11 @@ namespace Worktop.Infrastructure.Shared.Services
     public class TasksManager : ITasksManager, ICanExecute<TaskItem>
     {
         private readonly IDatabase database;
-        private readonly IRolesService rolesService;
+        private readonly IReadOnlyRolesService rolesService;
 
         private readonly int currentUserId;
 
-        public TasksManager(IDatabase database, IHttpContextAccessor httpContextAccessor, IRolesService rolesService)
+        public TasksManager(IDatabase database, IHttpContextAccessor httpContextAccessor, IReadOnlyRolesService rolesService)
         {
             this.database = database;
             this.rolesService = rolesService;
@@ -26,9 +27,8 @@ namespace Worktop.Infrastructure.Shared.Services
             this.currentUserId = httpContextAccessor.HttpContext.GetCurrentUserId();
         }
 
-        public async Task<TaskItem> GetTask(int taskId) => await rolesService.IsPermitted(RoleName.Admin, currentUserId)
-            ? await database.TaskRepository.Get(taskId)
-            : await database.TaskRepository.Find(t => t.Id == taskId && (t.ExecutorId == currentUserId || t.ExecutorId == null));
+        public async Task<TaskItem> GetTask(int taskId)
+            => await database.TaskRepository.Find(t => t.Id == taskId && (t.ExecutorId == currentUserId || t.ExecutorId == null));
 
         public async Task<IEnumerable<TaskItem>> GetUserTasks(int userId)
             => await database.TaskRepository.Filter(t => t.ExecutorId == userId);

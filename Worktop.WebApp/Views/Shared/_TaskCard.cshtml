@@ -1,9 +1,6 @@
-@using Worktop.Core.Application.Services
-@using Worktop.Core.Common.Enums
-@using Worktop.Core.Application.Extensions
-@model Worktop.WebApp.ViewModels.Partials.TaskCardViewModel
+@model TaskCardViewModel
 
-@inject IRolesService RolesService
+@inject IReadOnlyRolesService RolesService
 
 <div class="card bg-light text-center">
     <div class="card-body">

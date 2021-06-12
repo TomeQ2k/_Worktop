@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Worktop.Core.Application.Extensions;
 using Worktop.Core.Application.Services;
+using Worktop.Core.Application.Services.ReadOnly;
 using Worktop.Core.Common.Enums;
 using Worktop.Core.Common.Helpers;
 using Worktop.WebApp.ViewModels;
@@ -13,10 +14,10 @@ namespace Worktop.WebApp.Controllers
     public class TasksController : Controller
     {
         private readonly ITasksManager tasksManager;
-        private readonly IPanelManager panelManager;
+        private readonly IReadOnlyPanelManager panelManager;
         private readonly IMapper mapper;
 
-        public TasksController(ITasksManager tasksManager, IPanelManager panelManager, IMapper mapper)
+        public TasksController(ITasksManager tasksManager, IReadOnlyPanelManager panelManager, IMapper mapper)
         {
             this.tasksManager = tasksManager;
             this.panelManager = panelManager;

@@ -24,13 +24,15 @@ namespace Worktop.WebApp
 
                 try
                 {
+                    logger.LogInformation("Application started...");
+
                     var context = services.GetRequiredService<DataContext>();
                     var databaseManager = services.GetRequiredService<IDatabaseManager>();
 
                     context.Database.Migrate();
-                    logger.LogInformation("Database seed completed");
 
                     await databaseManager.Seed();
+                    logger.LogInformation("Database seed completed");
 
                     host.Run();
                 }

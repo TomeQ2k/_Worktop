@@ -1,14 +1,11 @@
 using System.Threading.Tasks;
-using Worktop.Core.Application.Models.Pagination;
-using Worktop.Core.Application.Params;
+using Worktop.Core.Application.Services.ReadOnly;
 using Worktop.Core.Domain.Entities;
 
 namespace Worktop.Core.Application.Services
 {
-    public interface IMessenger
+    public interface IMessenger : IReadOnlyMessenger
     {
-        Task<PagedList<Message>> GetMessages(FetchMessagesParams filterParams);
-
         Task<Message> Send(string text, string senderName, string roomId = null);
     }
 }

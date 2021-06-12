@@ -2,8 +2,7 @@
     ViewData["Title"] = Model.Title;
 }
 
-@using Worktop.Core.Application.Extensions
-@model Worktop.WebApp.ViewModels.GlobalChatViewModel
+@model GlobalChatViewModel
 
 <section class="d-flex flex-row justify-content-around text-center">
     <h3 class="mb-3">Global chat</h3>
@@ -14,7 +13,7 @@
     <section id="chat" class="col-sm-12">
         @foreach (var message in Model.Messages)
         {
-            <partial name="_MessageCard" model="@message" />
+            <partial name="_MessageCard" model="@MessageCardViewModel.Build(message)" />
         }
     </section>
 

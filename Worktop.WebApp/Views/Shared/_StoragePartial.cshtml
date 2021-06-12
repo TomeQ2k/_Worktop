@@ -1,4 +1,4 @@
-@model Worktop.WebApp.ViewModels.Partials.StoragePartialViewModel
+@model StoragePartialViewModel
 
 <section id="storage">
     @if (Model.Directories.Any())
@@ -16,7 +16,7 @@
                 <tbody>
                     @foreach (var directory in Model.Directories)
                     {
-                        <partial name="_DirectoryCard" model=@directory />
+                        <partial name="_DirectoryCard" model=@DirectoryCardViewModel.Build(directory) />
                     }
                 </tbody>
             </table>
@@ -52,7 +52,7 @@
                 <tbody>
                     @foreach (var file in Model.Files)
                     {
-                        <partial name="_FileCard" model=@file />
+                        <partial name="_FileCard" model=@FileCardViewModel.Build(file) />
                     }
                 </tbody>
             </table>

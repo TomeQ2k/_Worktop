@@ -1,17 +1,16 @@
-@using Worktop.Core.Application.Extensions
-@model Worktop.Core.Domain.Entities.Directory
+@model DirectoryCardViewModel
 
 <tr class="text-center">
-    <td><a asp-action="Directory" asp-controller="Storage" asp-route-id=@Model.Id asp-route-isPrivate=@(Model.UserId !=
-            null)>@Model.Name</a>
+    <td><a asp-action="Directory" asp-controller="Storage" asp-route-id=@Model.Directory.Id asp-route-isPrivate=@(Model.Directory.UserId !=
+            null)>@Model.Directory.Name</a>
     </td>
-    <td>@Model.DateCreated.ToString(@"dd.MM.yyyy, h:mm tt")</td>
+    <td>@Model.Directory.DateCreated.ToString(@"dd.MM.yyyy, h:mm tt")</td>
     <td class=" d-flex flex-row justify-content-around align-items-center mb-3 p-1">
-        @if (Model.UserId == null || Model.UserId ==
+        @if (Model.Directory.UserId == null || Model.Directory.UserId ==
         Context.GetCurrentUserId())
         {
-            <form asp-action="DeleteDirectory" asp-controller="Storage" asp-route-directoryId=@Model.Id
-            asp-route-isPrivate=@(Model.UserId != null) asp-route-hasParentDirectory=@(Model.ParentDirectoryId != null)
+            <form asp-action="DeleteDirectory" asp-controller="Storage" asp-route-directoryId=@Model.Directory.Id
+            asp-route-isPrivate=@(Model.Directory.UserId != null) asp-route-hasParentDirectory=@(Model.Directory.ParentDirectoryId != null)
             method="POST" class="text-center ml-1">
                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
             </form>
