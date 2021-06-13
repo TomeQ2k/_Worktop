@@ -39,16 +39,22 @@ namespace Worktop.WebApp
                     var context = services.GetRequiredService<DataContext>();
                     var databaseManager = services.GetRequiredService<IDatabaseManager>();
 
-                    context.Database.Migrate();
+                    await context.Database.MigrateAsync();
+                    Log.Information("Database migration completed");
 
                     await databaseManager.Seed();
-                    Log.Information("Database seed completed");
+
+                    Log.Information("Application initialized");
 
                     host.Run();
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex, "Error occured during migration");
+                    Log.Error(ex, "Application terminated unexpectedly...");
+                }
+                finally
+                {
+                    Log.CloseAndFlush();
                 }
             }
         }

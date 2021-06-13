@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Serilog;
 using Worktop.Core.Application.Services;
 using Worktop.Core.Common.Helpers;
 using Worktop.WebApp.BackgroundServices.Interfaces;
@@ -20,6 +21,8 @@ namespace Worktop.WebApp.BackgroundServices
         {
             await InsertRoles();
             await InsertJobs();
+
+            Log.Information("Database seed completed");
         }
 
         #region private
