@@ -25,9 +25,19 @@ namespace Worktop.Infrastructure.Shared.Services
         {
             var jsonJobs = await fileReader.ReadFile(JobsFilePath);
             var jobs = jsonJobs.FromJSON<IEnumerable<Job>>();
+            var jobsFromDatabase = await database.JobRepository.Fetch();
 
-            if (!(await database.JobRepository.Fetch()).Any())
+            if (!jobsFromDatabase.Any())
                 database.JobRepository.AddRange(jobs);
+            else
+            {
+                foreach (var jobToInsert in jobs)
+                    if (!jobsFromDatabase.Any(j => j.Title.ToLower().Equals(jobToInsert.Title.ToLower())))
+                        database.JobRepository.Add(jobToInsert);
+
+                var jobsToDelete = jobsFromDatabase.Where(job => !jobs.Any(j => j.Title.ToLower().Equals(job.Title.ToLower())));
+                database.JobRepository.DeleteRange(jobsToDelete);
+            }
 
             return await database.Complete();
         }
