@@ -34,7 +34,7 @@ namespace Worktop.Core.Application.Models.Pagination
         public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize)
         {
             int count = await source.CountAsync();
-            var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
 
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
