@@ -17,17 +17,38 @@ namespace Worktop.Infrastructure.Persistence.Database
             this.context = context;
         }
 
-        public async Task<T> Get(int id)
+        public async Task<T> FindById(int id)
             => await context.Set<T>().FindAsync(id);
 
-        public async Task<T> Find(Expression<Func<T, bool>> predicate)
-            => await context.Set<T>().FirstOrDefaultAsync(predicate);
+        public async Task<T> Find(Expression<Func<T, bool>> predicate, params string[] includes)
+        {
+            var query = context.Set<T>().AsQueryable();
 
-        public async Task<IEnumerable<T>> Fetch()
-            => await context.Set<T>().ToListAsync();
+            foreach (var include in includes)
+                query = query.Include(include);
 
-        public async Task<IEnumerable<T>> Filter(Expression<Func<T, bool>> predicate)
-            => await context.Set<T>().Where(predicate).ToListAsync();
+            return await query.FirstOrDefaultAsync(predicate);
+        }
+
+        public async Task<IEnumerable<T>> GetAll(params string[] includes)
+        {
+            var query = context.Set<T>().AsQueryable();
+
+            foreach (var include in includes)
+                query = query.Include(include);
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate, params string[] includes)
+        {
+            var query = context.Set<T>().AsQueryable();
+
+            foreach (var include in includes)
+                query = query.Include(include);
+
+            return await query.Where(predicate).ToListAsync();
+        }
 
         public void Add(T entity)
         {

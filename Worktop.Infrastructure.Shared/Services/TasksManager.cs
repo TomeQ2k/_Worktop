@@ -31,10 +31,10 @@ namespace Worktop.Infrastructure.Shared.Services
             => await database.TaskRepository.Find(t => t.Id == taskId && (t.ExecutorId == currentUserId || t.ExecutorId == null));
 
         public async Task<IEnumerable<TaskItem>> GetUserTasks(int userId)
-            => await database.TaskRepository.Filter(t => t.ExecutorId == userId);
+            => await database.TaskRepository.GetWhere(t => t.ExecutorId == userId);
 
         public async Task<IEnumerable<TaskItem>> GetCurrentUserTasks()
-            => await database.TaskRepository.Filter(t => t.ExecutorId == currentUserId || t.Progress == TaskProgress.Unassigned);
+            => await database.TaskRepository.GetWhere(t => t.ExecutorId == currentUserId || t.Progress == TaskProgress.Unassigned);
 
         public async Task<bool> ArrangeTask(string description, DateTime dateDeadline)
         {

@@ -25,9 +25,9 @@ namespace Worktop.Infrastructure.Shared.Services
         public async Task<PagedList<User>> FilterWorkers(WorkerFiltersParams filtersParams)
             => (PagedList<User>)await database.UserRepository.GetFilteredWorkers(filtersParams, (filtersParams.PageNumber, filtersParams.PageSize));
 
-        public async Task<IEnumerable<User>> GetAllWorkers() => await database.UserRepository.Fetch();
+        public async Task<IEnumerable<User>> GetAllWorkers() => await database.UserRepository.GetAll();
 
-        public async Task<IEnumerable<Job>> GetJobs() => await database.JobRepository.Fetch();
+        public async Task<IEnumerable<Job>> GetJobs() => await database.JobRepository.GetAll();
 
         public async Task<bool> AssignJob(int jobId, int workerId)
         {

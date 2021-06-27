@@ -16,7 +16,7 @@ namespace Worktop.Infrastructure.Shared.Services
             this.database = database;
         }
 
-        public async Task<Article> GetArticle(int articleId) => await database.ArticleRepository.Get(articleId);
+        public async Task<Article> GetArticle(int articleId) => await database.ArticleRepository.FindById(articleId);
 
         public async Task<IEnumerable<Article>> FetchArticles()
             => await database.ArticleRepository.FetchOrderedArticles();
@@ -32,7 +32,7 @@ namespace Worktop.Infrastructure.Shared.Services
 
         public async Task<bool> UpdateArticle(int articleId, string title, string content)
         {
-            var article = await database.ArticleRepository.Get(articleId);
+            var article = await database.ArticleRepository.FindById(articleId);
 
             if (article == null)
                 return false;
@@ -48,7 +48,7 @@ namespace Worktop.Infrastructure.Shared.Services
 
         public async Task<bool> DeleteArticle(int articleId)
         {
-            var article = await database.ArticleRepository.Get(articleId);
+            var article = await database.ArticleRepository.FindById(articleId);
 
             if (article == null)
                 return false;

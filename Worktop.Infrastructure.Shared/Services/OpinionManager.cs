@@ -26,7 +26,7 @@ namespace Worktop.Infrastructure.Shared.Services
 
         public async Task<bool> SendOpinion(Opinion opinion)
         {
-            var worker = await database.UserRepository.Get(opinion.UserId);
+            var worker = await database.UserRepository.FindById(opinion.UserId);
 
             if (worker == null)
                 return false;

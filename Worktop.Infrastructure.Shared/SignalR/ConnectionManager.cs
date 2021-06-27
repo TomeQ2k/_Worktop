@@ -53,6 +53,6 @@ namespace Worktop.Infrastructure.Shared.SignalR
 
         public async Task<string> GetConnectionId(int userId) => (await database.ConnectionRepository.Find(c => c.UserId == userId))?.ConnectionId;
 
-        public async Task<IEnumerable<Connection>> FetchConnections(int userId) => await database.ConnectionRepository.Filter(c => c.UserId == userId);
+        public async Task<IEnumerable<Connection>> FetchConnections(int userId) => await database.ConnectionRepository.GetWhere(c => c.UserId == userId);
     }
 }

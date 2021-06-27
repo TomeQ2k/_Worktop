@@ -37,7 +37,7 @@ namespace Worktop.Infrastructure.Shared.Services
 
         public async Task<Mail> SendMail(Mail mail)
         {
-            var sender = await database.UserRepository.Get(currentUserId);
+            var sender = await database.UserRepository.FindById(currentUserId);
 
             if (sender.Email.ToLower() == mail.ToAddress.ToLower())
             {
@@ -100,7 +100,7 @@ namespace Worktop.Infrastructure.Shared.Services
         }
 
         public async Task<IEnumerable<string>> FetchEmailAddresses()
-            => (await database.UserRepository.Fetch()).Select(u => u.Email);
+            => (await database.UserRepository.GetAll()).Select(u => u.Email);
 
         #region private
 

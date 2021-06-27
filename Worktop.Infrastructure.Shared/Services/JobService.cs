@@ -25,7 +25,7 @@ namespace Worktop.Infrastructure.Shared.Services
         {
             var jsonJobs = await fileReader.ReadFile(JobsFilePath);
             var jobs = jsonJobs.FromJSON<IEnumerable<Job>>();
-            var jobsFromDatabase = await database.JobRepository.Fetch();
+            var jobsFromDatabase = await database.JobRepository.GetAll();
 
             if (!jobsFromDatabase.Any())
                 database.JobRepository.AddRange(jobs);

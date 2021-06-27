@@ -129,8 +129,8 @@ namespace Worktop.Infrastructure.Shared.Services
         public async Task<List<File>> ListFiles(string directoryId = null, bool isPrivate = false, StorageSortType sortType = StorageSortType.DateDescending)
         {
             var files = (!isPrivate
-                ? await database.FileRepository.Filter(f => f.UserId == null && f.DirectoryId == directoryId)
-                : await database.FileRepository.Filter(f => f.UserId == currentUserId && f.DirectoryId == directoryId))
+                ? await database.FileRepository.GetWhere(f => f.UserId == null && f.DirectoryId == directoryId)
+                : await database.FileRepository.GetWhere(f => f.UserId == currentUserId && f.DirectoryId == directoryId))
                 .ToList();
 
             files = SortFiles(sortType, files);

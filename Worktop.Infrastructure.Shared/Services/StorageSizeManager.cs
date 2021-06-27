@@ -30,8 +30,8 @@ namespace Worktop.Infrastructure.Shared.Services
 
         public async Task<uint> CountStorageSize(bool isPrivateStorage = false)
             => !isPrivateStorage
-            ? (uint)(await database.FileRepository.Filter(f => f.UserId == null)).Sum(f => f.Size)
-            : (uint)(await database.FileRepository.Filter(f => f.UserId != null)).Sum(f => f.Size);
+            ? (uint)(await database.FileRepository.GetWhere(f => f.UserId == null)).Sum(f => f.Size)
+            : (uint)(await database.FileRepository.GetWhere(f => f.UserId != null)).Sum(f => f.Size);
 
         public string ConvertUnits(uint size)
         {
