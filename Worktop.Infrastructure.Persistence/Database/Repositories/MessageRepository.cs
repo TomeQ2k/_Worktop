@@ -14,7 +14,7 @@ namespace Worktop.Infrastructure.Persistence.Database.Repositories
         }
 
         public async Task<IPagedList<Message>> GetMessagesInGlobalChat((int PageNumber, int PageSize) pagination)
-            => await context.Messages.Where(m => m.ChatRoom == null)
+            => await context.Messages.Where(m => m.ChatRoomId == null)
                 .OrderByDescending(m => m.DateSent)
                 .ToPagedList<Message>(pagination.PageNumber, pagination.PageSize);
     }
