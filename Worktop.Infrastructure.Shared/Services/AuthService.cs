@@ -91,7 +91,7 @@ namespace Worktop.Infrastructure.Shared.Services
                 confirmAccountToken = cryptoService.Encrypt(confirmAccountToken);
 
                 string callbackUrl =
-                    $"{Configuration.GetValue<string>(AppSettingsKeys.ServerAddress)}Auth/ConfirmAccount?email={user.Email}&token={confirmAccountToken}";
+                    $"{Configuration.GetValue<string>(AppSettingsKeys.ServerAddress)}/Auth/ConfirmAccount?email={user.Email}&token={confirmAccountToken}";
 
                 await emailSender.Send(EmailMessages.ActivationAccountEmail(email, callbackUrl));
 

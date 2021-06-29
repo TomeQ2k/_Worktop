@@ -50,7 +50,7 @@ namespace Worktop.Infrastructure.Shared.Services
 
             newPassword = cryptoService.Encrypt(newPassword);
 
-            string callbackUrl = $"{Configuration.GetValue<string>(AppSettingsKeys.ServerAddress)}Auth/ConfirmResetPassword?email={user.Email}&newPassword={newPassword}&token={resetPasswordToken}";
+            string callbackUrl = $"{Configuration.GetValue<string>(AppSettingsKeys.ServerAddress)}/Auth/ConfirmResetPassword?email={user.Email}&newPassword={newPassword}&token={resetPasswordToken}";
 
             return await emailSender.Send(EmailMessages.ResetPasswordEmail(email, callbackUrl));
         }

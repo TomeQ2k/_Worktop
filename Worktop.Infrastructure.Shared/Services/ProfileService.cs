@@ -77,7 +77,7 @@ namespace Worktop.Infrastructure.Shared.Services
             var changeEmailToken = await userManager.GenerateChangeEmailTokenAsync(currentUser, newEmail);
             changeEmailToken = cryptoService.Encrypt(changeEmailToken);
 
-            string callbackUrl = $"{Configuration.GetValue<string>(AppSettingsKeys.ServerAddress)}Profile/ConfirmChangeEmail?newEmail={newEmail}&token={changeEmailToken}";
+            string callbackUrl = $"{Configuration.GetValue<string>(AppSettingsKeys.ServerAddress)}/Profile/ConfirmChangeEmail?newEmail={newEmail}&token={changeEmailToken}";
 
             return await emailSender.Send(EmailMessages.EmailChangeEmail(newEmail, callbackUrl));
         }
